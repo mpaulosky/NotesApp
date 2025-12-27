@@ -1,0 +1,13 @@
+<Solution>
+    <Folder Name="/src/">
+        <Project Path="src/Notes.AppHost/Notes.AppHost.csproj" />
+        <Project Path="src/Notes.ServiceDefaults/Notes.ServiceDefaults.csproj" />
+        <Project Path="src/Notes.Web/Notes.Web.csproj" />
+        <Project Path="src/Shared/Shared.csproj" />
+    </Folder>
+    <Folder Name="/Tests/">
+        <Project Path="Tests/Notes.Tests.Architecture/Notes.Tests.Architecture.csproj" />
+        <Project Path="Tests/Notes.Web.Tests.Integration/Notes.Web.Tests.Integration.csproj" />
+        <Project Path="Tests/Notes.Web.Tests.Unit/Notes.Web.Tests.Unit.csproj" />
+    </Folder>
+</Solution>
