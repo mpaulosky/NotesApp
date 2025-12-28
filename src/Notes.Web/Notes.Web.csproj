@@ -4,10 +4,12 @@
 		<TargetFramework>net10.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<UserSecretsId>c219804b-21bd-4af1-809a-5bdb2a686a51</UserSecretsId>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Notes.ServiceDefaults\Notes.ServiceDefaults.csproj"/>
+		<ProjectReference Include="..\Shared\Shared.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
