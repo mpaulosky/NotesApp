@@ -5,12 +5,16 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 // Configure resources
 var redisCache = builder.AddRedisServices();
-var mongoDb = builder.AddMongoDbServices();
 
-builder.AddProject<Projects.Notes_Web>("frontend")
+// Use MongoDB Atlas (cloud) instead of local container
+var mongoDb = builder.AddMongoDbAtlasDatabase(DatabaseName);
+
+builder.AddProject<Projects.Notes_Web>(Website)
 		.WithExternalHttpEndpoints()
 		.WithHttpHealthCheck("/health")
-		.WithReference(redisCache).WaitFor(redisCache)
-		.WithReference(mongoDb).WaitFor(mongoDb);
+		.WithReference(mongoDb)
+		.WaitFor(mongoDb)
+		.WithReference(redisCache)
+		.WaitFor(redisCache);
 
 builder.Build().Run();

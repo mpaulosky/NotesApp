@@ -1,11 +1,12 @@
 using Notes.Web;
 using Notes.Web.Components;
+using static Shared.Constants.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add service defaults & Aspire client integrations.
 builder.AddServiceDefaults();
-builder.AddRedisOutputCache("cache");
+builder.AddRedisOutputCache(RedisCache);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()

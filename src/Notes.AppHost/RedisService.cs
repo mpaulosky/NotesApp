@@ -7,13 +7,7 @@
 // Project Name :  Notes.AppHost
 // =======================================================
 
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Logging;
-
 using StackExchange.Redis;
-
-using static Shared.Constants.Constants;
 
 namespace Notes.AppHost;
 
