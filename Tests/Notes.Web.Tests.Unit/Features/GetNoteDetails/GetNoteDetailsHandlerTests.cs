@@ -42,13 +42,16 @@ public class GetNoteDetailsHandlerTests
 
 		// Assert
 		response.Should().NotBeNull();
-		response!.Id.Should().Be(note.Id);
-		response.Title.Should().Be(note.Title);
-		response.Content.Should().Be(note.Content);
-		response.AiSummary.Should().Be(note.AiSummary);
-		response.Tags.Should().Be(note.Tags);
-		response.CreatedAt.Should().Be(note.CreatedAt);
-		response.UpdatedAt.Should().Be(note.UpdatedAt);
+		response!.Success.Should().BeTrue();
+		response.Note.Should().NotBeNull();
+		response.Note!.Id.Should().Be(note.Id);
+		response.Note.Title.Should().Be(note.Title);
+		response.Note.Content.Should().Be(note.Content);
+		response.Note.AiSummary.Should().Be(note.AiSummary);
+		response.Note.Tags.Should().Be(note.Tags);
+		response.Note.IsArchived.Should().Be(note.IsArchived);
+		response.Note.CreatedAt.Should().Be(note.CreatedAt);
+		response.Note.UpdatedAt.Should().Be(note.UpdatedAt);
 	}
 
 	[Fact]
@@ -68,7 +71,9 @@ public class GetNoteDetailsHandlerTests
 		var response = await _handler.Handle(query, CancellationToken.None);
 
 		// Assert
-		response.Should().BeNull();
+		response.Should().NotBeNull();
+		response!.Success.Should().BeFalse();
+		response.Note.Should().BeNull();
 	}
 
 	[Fact]
@@ -89,7 +94,9 @@ public class GetNoteDetailsHandlerTests
 		var response = await _handler.Handle(query, CancellationToken.None);
 
 		// Assert
-		response.Should().BeNull();
+		response.Should().NotBeNull();
+		response!.Success.Should().BeFalse();
+		response.Note.Should().BeNull();
 	}
 
 	[Fact]
@@ -109,7 +116,9 @@ public class GetNoteDetailsHandlerTests
 		var response = await _handler.Handle(query, CancellationToken.None);
 
 		// Assert
-		response.Should().BeNull();
+		response.Should().NotBeNull();
+		response!.Success.Should().BeFalse();
+		response.Note.Should().BeNull();
 	}
 
 	[Fact]

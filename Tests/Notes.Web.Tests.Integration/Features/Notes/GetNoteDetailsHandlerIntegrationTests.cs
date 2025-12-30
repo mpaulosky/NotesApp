@@ -68,13 +68,15 @@ public class GetNoteDetailsHandlerIntegrationTests : IClassFixture<MongoDbFixtur
 
 		// Assert
 		response.Should().NotBeNull();
-		response!.Id.Should().Be(note.Id);
-		response.Title.Should().Be("Test Note");
-		response.Content.Should().Be("Test content for the note");
-		response.AiSummary.Should().Be("This is a test summary");
-		response.Tags.Should().Be("test, sample, integration");
-		response.CreatedAt.Should().BeCloseTo(note.CreatedAt, TimeSpan.FromSeconds(1));
-		response.UpdatedAt.Should().BeCloseTo(note.UpdatedAt, TimeSpan.FromSeconds(1));
+		response!.Success.Should().BeTrue();
+		response.Note.Should().NotBeNull();
+		response.Note!.Id.Should().Be(note.Id);
+		response.Note.Title.Should().Be("Test Note");
+		response.Note.Content.Should().Be("Test content for the note");
+		response.Note.AiSummary.Should().Be("This is a test summary");
+		response.Note.Tags.Should().Be("test, sample, integration");
+		response.Note.CreatedAt.Should().BeCloseTo(note.CreatedAt, TimeSpan.FromSeconds(1));
+		response.Note.UpdatedAt.Should().BeCloseTo(note.UpdatedAt, TimeSpan.FromSeconds(1));
 	}
 
 	[Fact]
@@ -93,7 +95,9 @@ public class GetNoteDetailsHandlerIntegrationTests : IClassFixture<MongoDbFixtur
 		GetNoteDetailsResponse? response = await _handler.Handle(query, CancellationToken.None);
 
 		// Assert
-		response.Should().BeNull();
+		response.Should().NotBeNull();
+		response!.Success.Should().BeFalse();
+		response.Note.Should().BeNull();
 	}
 
 	[Fact]
@@ -124,7 +128,9 @@ public class GetNoteDetailsHandlerIntegrationTests : IClassFixture<MongoDbFixtur
 		GetNoteDetailsResponse? response = await _handler.Handle(query, CancellationToken.None);
 
 		// Assert
-		response.Should().BeNull();
+		response.Should().NotBeNull();
+		response!.Success.Should().BeFalse();
+		response.Note.Should().BeNull();
 	}
 
 	[Fact]
@@ -158,8 +164,10 @@ public class GetNoteDetailsHandlerIntegrationTests : IClassFixture<MongoDbFixtur
 
 		// Assert
 		response.Should().NotBeNull();
-		response!.AiSummary.Should().BeNull();
-		response.Tags.Should().BeNull();
+		response!.Success.Should().BeTrue();
+		response.Note.Should().NotBeNull();
+		response.Note!.AiSummary.Should().BeNull();
+		response.Note.Tags.Should().BeNull();
 	}
 
 	[Fact]
@@ -192,8 +200,10 @@ public class GetNoteDetailsHandlerIntegrationTests : IClassFixture<MongoDbFixtur
 
 		// Assert
 		response.Should().NotBeNull();
-		response!.Content.Should().HaveLength(10000);
-		response.Content.Should().Be(longContent);
+		response!.Success.Should().BeTrue();
+		response.Note.Should().NotBeNull();
+		response.Note!.Content.Should().HaveLength(10000);
+		response.Note.Content.Should().Be(longContent);
 	}
 
 	[Fact]
@@ -226,8 +236,10 @@ public class GetNoteDetailsHandlerIntegrationTests : IClassFixture<MongoDbFixtur
 
 		// Assert
 		response.Should().NotBeNull();
-		response!.Title.Should().Be("Special: <>&\"'\\/@#$%");
-		response.Content.Should().Be("Content with émojis 🎉 and unicode ñ ü");
-		response.Tags.Should().Be("tag1, tag&special, \"quoted\"");
+		response!.Success.Should().BeTrue();
+		response.Note.Should().NotBeNull();
+		response.Note!.Title.Should().Be("Special: <>&\"'\\/@#$%");
+		response.Note.Content.Should().Be("Content with émojis 🎉 and unicode ñ ü");
+		response.Note.Tags.Should().Be("tag1, tag&special, \"quoted\"");
 	}
 }

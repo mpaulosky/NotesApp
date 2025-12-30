@@ -36,7 +36,7 @@ public class DeleteNoteHandlerTests
 		// Assert
 		response.Should().NotBeNull();
 		response.Success.Should().BeTrue();
-		response.Message.Should().Be("Note deleted successfully.");
+		response.Message.Should().Be("Note archived successfully.");
 	}
 
 	[Fact]
@@ -58,7 +58,7 @@ public class DeleteNoteHandlerTests
 		// Assert
 		response.Success.Should().BeFalse();
 		response.Message.Should().Be("Note not found or access denied.");
-		await _repository.DidNotReceive().DeleteNote(Arg.Any<Note>());
+		await _repository.DidNotReceive().ArchiveNote(Arg.Any<Note>());
 	}
 
 	[Fact]
@@ -81,7 +81,7 @@ public class DeleteNoteHandlerTests
 		// Assert
 		response.Success.Should().BeFalse();
 		response.Message.Should().Be("Note not found or access denied.");
-		await _repository.DidNotReceive().DeleteNote(Arg.Any<Note>());
+		await _repository.DidNotReceive().ArchiveNote(Arg.Any<Note>());
 	}
 
 	[Fact]
@@ -102,7 +102,7 @@ public class DeleteNoteHandlerTests
 		await _handler.Handle(command, CancellationToken.None);
 
 		// Assert
-		await _repository.Received(1).DeleteNote(Arg.Is<Note>(n => n.Id == existingNote.Id));
+		await _repository.Received(1).ArchiveNote(Arg.Is<Note>(n => n.Id == existingNote.Id));
 	}
 
 	[Fact]
@@ -124,6 +124,6 @@ public class DeleteNoteHandlerTests
 		// Assert
 		response.Success.Should().BeFalse();
 		response.Message.Should().Be("Note not found or access denied.");
-		await _repository.DidNotReceive().DeleteNote(Arg.Any<Note>());
+		await _repository.DidNotReceive().ArchiveNote(Arg.Any<Note>());
 	}
 }

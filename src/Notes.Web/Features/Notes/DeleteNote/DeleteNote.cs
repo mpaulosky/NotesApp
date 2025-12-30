@@ -39,12 +39,12 @@ public class DeleteNoteHandler : IRequestHandler<DeleteNoteCommand, DeleteNoteRe
 			return new DeleteNoteResponse { Success = false, Message = "Note not found or access denied." };
 		}
 
-		await _repository.DeleteNote(noteResult.Value);
+		await _repository.ArchiveNote(noteResult.Value);
 
 		return new DeleteNoteResponse
 		{
 			Success = true,
-			Message = "Note deleted successfully."
+			Message = "Note archived successfully."
 		};
 	}
 
