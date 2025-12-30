@@ -10,6 +10,11 @@
 						@context.User.Identity?.Name!</a>
 				</Authorized>
 			</AuthorizeView>
+			<AuthorizeView>
+				<Authorized>
+					<a href="/notes">Notes</a>
+				</Authorized>
+			</AuthorizeView>
 			<a href="/articles">Articles</a>
 			<AuthorizeView Roles="Admin">
 				<a href="/categories">Categories</a>
