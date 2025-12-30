@@ -49,6 +49,7 @@ public class DeleteNoteHandlerIntegrationTests : IClassFixture<MongoDbFixture>
 			Title = "Note to Delete",
 			Content = "This note will be deleted",
 			OwnerSubject = "test-user",
+			IsArchived = false,
 			CreatedAt = DateTime.UtcNow,
 			UpdatedAt = DateTime.UtcNow
 		};
@@ -67,11 +68,12 @@ public class DeleteNoteHandlerIntegrationTests : IClassFixture<MongoDbFixture>
 		// Assert
 		response.Should().NotBeNull();
 		response.Success.Should().BeTrue();
-		response.Message.Should().Be("Note deleted successfully.");
+		response.Message.Should().Be("Note archived successfully.");
 
-		// Verify note is actually deleted from database
-		var deletedNote = await _fixture.GetNoteByIdAsync(note.Id);
-		deletedNote.Should().BeNull();
+		// Verify note is actually archived, not deleted
+		var archivedNote = await _fixture.GetNoteByIdAsync(note.Id);
+		archivedNote.Should().NotBeNull();
+		archivedNote!.IsArchived.Should().BeTrue();
 	}
 
 	[Fact]
@@ -125,10 +127,11 @@ public class DeleteNoteHandlerIntegrationTests : IClassFixture<MongoDbFixture>
 		response.Success.Should().BeFalse();
 		response.Message.Should().Be("Note not found or access denied.");
 
-		// Verify note was NOT deleted
+		// Verify note was NOT archived (should remain unchanged)
 		var unchangedNote = await _fixture.GetNoteByIdAsync(note.Id);
 		unchangedNote.Should().NotBeNull();
 		unchangedNote!.Title.Should().Be("User A's Note");
+		unchangedNote.IsArchived.Should().BeFalse();
 	}
 
 	[Fact]
@@ -141,7 +144,7 @@ public class DeleteNoteHandlerIntegrationTests : IClassFixture<MongoDbFixture>
 
 		var command = new DeleteNoteCommand
 		{
-			Id = notes[1].Id, // Delete middle note
+			Id = notes[1].Id, // Archive middle note
 			UserSubject = "test-user"
 		};
 
@@ -151,12 +154,16 @@ public class DeleteNoteHandlerIntegrationTests : IClassFixture<MongoDbFixture>
 		// Assert
 		response.Success.Should().BeTrue();
 
-		// Verify only the specified note was deleted
-		var remainingNotes = await _fixture.GetNotesByUserAsync("test-user");
-		remainingNotes.Should().HaveCount(2);
-		remainingNotes.Should().NotContain(n => n.Id == notes[1].Id);
-		remainingNotes.Should().Contain(n => n.Id == notes[0].Id);
-		remainingNotes.Should().Contain(n => n.Id == notes[2].Id);
+		// Verify only the specified note was archived
+		var allNotes = await _fixture.GetNotesByUserAsync("test-user");
+		allNotes.Should().HaveCount(3); // All notes still exist
+		
+		var archivedNote = allNotes.FirstOrDefault(n => n.Id == notes[1].Id);
+		archivedNote.Should().NotBeNull();
+		archivedNote!.IsArchived.Should().BeTrue();
+		
+		// Verify other notes are NOT archived
+		allNotes.Where(n => n.Id != notes[1].Id).Should().OnlyContain(n => !n.IsArchived);
 	}
 
 	[Fact]
@@ -189,7 +196,10 @@ public class DeleteNoteHandlerIntegrationTests : IClassFixture<MongoDbFixture>
 
 		// Assert
 		response.Success.Should().BeTrue();
-		var deletedNote = await _fixture.GetNoteByIdAsync(note.Id);
-		deletedNote.Should().BeNull();
+		
+		// Verify note still exists and remains archived
+		var archivedNote = await _fixture.GetNoteByIdAsync(note.Id);
+		archivedNote.Should().NotBeNull();
+		archivedNote!.IsArchived.Should().BeTrue();
 	}
 }
