@@ -85,7 +85,7 @@ jobs:
         run: dotnet restore
 
       - name: Build solution
-        run: dotnet build AINotesApp.slnx --configuration Release --no-restore
+        run: dotnet build NotesApp.slnx --configuration Release --no-restore
 
       - name: Run Tests
         id: run-tests
