@@ -43,6 +43,11 @@ public record UpdateNoteCommand : IRequest<UpdateNoteResponse>
 	/// </summary>
 	public string UserSubject { get; init; } = string.Empty;
 
+	/// <summary>
+	///   Gets or sets whether the note is archived.
+	/// </summary>
+	public bool IsArchived { get; init; }
+
 }
 
 /// <summary>
@@ -90,6 +95,7 @@ public class UpdateNoteHandler : IRequestHandler<UpdateNoteCommand, UpdateNoteRe
 		note.AiSummary = summary;
 		note.Tags = tags;
 		note.Embedding = embedding;
+		note.IsArchived = request.IsArchived;
 		note.UpdatedAt = System.DateTime.UtcNow;
 
 		await _repository.UpdateNote(note);
@@ -102,6 +108,7 @@ public class UpdateNoteHandler : IRequestHandler<UpdateNoteCommand, UpdateNoteRe
 			Content = note.Content,
 			AiSummary = note.AiSummary,
 			Tags = note.Tags,
+			IsArchived = note.IsArchived,
 			UpdatedAt = note.UpdatedAt
 		};
 	}
@@ -148,6 +155,11 @@ public record UpdateNoteResponse
 	///   Gets the AI-generated tags.
 	/// </summary>
 	public string? Tags { get; init; }
+
+	/// <summary>
+	///   Gets whether the note is archived.
+	/// </summary>
+	public bool IsArchived { get; init; }
 
 	/// <summary>
 	///   Gets the update timestamp.

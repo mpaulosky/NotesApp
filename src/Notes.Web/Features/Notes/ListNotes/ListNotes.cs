@@ -74,7 +74,10 @@ public class ListNotesHandler : IRequestHandler<ListNotesQuery, ListNotesRespons
 				{
 					Id = n.Id,
 					Title = n.Title,
+					Content = n.Content,
 					AiSummary = n.AiSummary,
+					Tags = n.Tags,
+					IsArchived = n.IsArchived,
 					CreatedAt = n.CreatedAt,
 					UpdatedAt = n.UpdatedAt
 				}).ToList()
@@ -82,6 +85,7 @@ public class ListNotesHandler : IRequestHandler<ListNotesQuery, ListNotesRespons
 
 		return new ListNotesResponse
 		{
+			Success = true,
 			Notes = notes,
 			TotalCount = totalCount,
 			PageNumber = request.PageNumber,
@@ -93,6 +97,10 @@ public class ListNotesHandler : IRequestHandler<ListNotesQuery, ListNotesRespons
 
 public record ListNotesResponse
 {
+
+	public bool Success { get; init; }
+
+	public string? Message { get; init; }
 
 	public List<NoteListItem> Notes { get; init; } = new();
 
@@ -113,7 +121,13 @@ public record NoteListItem
 
 	public string Title { get; init; } = string.Empty;
 
+	public string Content { get; init; } = string.Empty;
+
 	public string? AiSummary { get; init; }
+
+	public string? Tags { get; init; }
+
+	public bool IsArchived { get; init; }
 
 	public DateTime CreatedAt { get; init; }
 

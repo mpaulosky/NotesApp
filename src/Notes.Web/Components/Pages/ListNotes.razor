@@ -1,0 +1,153 @@
+@page "/notes"
+@using global::Notes.Web.Features.Notes.ListNotes
+@using global::Notes.Web.Features.Notes.DeleteNote
+@using MediatR
+@inject IMediator Mediator
+@inject NavigationManager NavigationManager
+@attribute [Authorize]
+
+<PageHeadingComponent Level="1" HeaderText="@_pageTitle" />
+
+<div class="container-card">
+	<div class="mb-4 flex justify-between items-center">
+		<h2 class="text-2xl font-semibold text-gray-100">My Notes</h2>
+		<a href="/notes/create" class="btn-primary">Create New Note</a>
+	</div>
+
+	@if (_isLoading)
+	{
+		<LoadingComponent />
+	}
+	else if (_notes == null || !_notes.Any())
+	{
+		<p class="text-gray-400">No notes found. Create your first note to get started!</p>
+	}
+	else
+	{
+		<div class="space-y-4">
+			@foreach (var note in _notes)
+			{
+				<div class="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors">
+					<div class="flex justify-between items-start mb-2">
+						<h3 class="text-xl font-semibold text-gray-100">@note.Title</h3>
+						<div class="flex gap-2">
+							@if (note.IsArchived)
+							{
+								<span class="px-2 py-1 text-xs bg-yellow-600 text-white rounded">Archived</span>
+							}
+							<a href="@($"/notes/edit/{note.Id}")" class="text-blue-400 hover:text-blue-300">Edit</a>
+							<button @onclick="() => ArchiveNote(note.Id)" class="text-yellow-400 hover:text-yellow-300">
+								@(note.IsArchived ? "Unarchive" : "Archive")
+							</button>
+						</div>
+					</div>
+					<p class="text-gray-300 line-clamp-2">@note.Content</p>
+					@if (!string.IsNullOrEmpty(note.Tags))
+					{
+						<div class="mt-2 flex gap-2 flex-wrap">
+							@foreach (var tag in note.Tags.Split(',', StringSplitOptions.RemoveEmptyEntries))
+							{
+								<span class="px-2 py-1 text-xs bg-blue-600 text-white rounded">@tag.Trim()</span>
+							}
+						</div>
+					}
+					<p class="text-sm text-gray-500 mt-2">Updated: @note.UpdatedAt.ToString("MMM dd, yyyy")</p>
+				</div>
+			}
+		</div>
+	}
+
+	@if (!string.IsNullOrEmpty(_errorMessage))
+	{
+		<ErrorAlertComponent Message="@_errorMessage" />
+	}
+</div>
+
+@code {
+	[CascadingParameter]
+	private Task<AuthenticationState>? AuthenticationState { get; set; }
+
+	private const string _pageTitle = "Notes";
+	private List<NoteListItem>? _notes;
+	private bool _isLoading = true;
+	private string? _errorMessage;
+	private string _userSubject = string.Empty;
+
+	protected override async Task OnInitializedAsync()
+	{
+		if (AuthenticationState is not null)
+		{
+			var state = await AuthenticationState;
+			_userSubject = state.User.Claims
+				.Where(c => c.Type.Equals(System.Security.Claims.ClaimTypes.NameIdentifier))
+				.Select(c => c.Value)
+				.FirstOrDefault() ?? string.Empty;
+		}
+
+		await LoadNotes();
+	}
+
+	private async Task LoadNotes()
+	{
+		_isLoading = true;
+		_errorMessage = null;
+
+		try
+		{
+			var query = new ListNotesQuery
+			{
+				UserSubject = _userSubject
+			};
+
+			var response = await Mediator.Send(query);
+
+			if (response.Success && response.Notes != null)
+			{
+				_notes = response.Notes
+					.OrderByDescending(n => n.UpdatedAt)
+					.ToList();
+			}
+			else
+			{
+				_errorMessage = response.Message ?? "Failed to load notes.";
+				_notes = new List<NoteListItem>();
+			}
+		}
+		catch (Exception ex)
+		{
+			_errorMessage = $"Error loading notes: {ex.Message}";
+			_notes = new List<NoteListItem>();
+		}
+		finally
+		{
+			_isLoading = false;
+		}
+	}
+
+	private async Task ArchiveNote(ObjectId noteId)
+	{
+		try
+		{
+			var command = new DeleteNoteCommand
+			{
+				Id = noteId,
+				UserSubject = _userSubject
+			};
+
+			var response = await Mediator.Send(command);
+
+			if (response.Success)
+			{
+				await LoadNotes();
+			}
+			else
+			{
+				_errorMessage = response.Message ?? "Failed to archive note.";
+			}
+		}
+		catch (Exception ex)
+		{
+			_errorMessage = $"Error archiving note: {ex.Message}";
+		}
+	}
+}

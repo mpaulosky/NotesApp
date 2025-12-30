@@ -36,26 +36,44 @@ public class GetNoteDetailsHandler : IRequestHandler<GetNoteDetailsQuery, GetNot
 
 		if (!noteResult.Success || noteResult.Value == null || noteResult.Value.OwnerSubject != request.UserSubject)
 		{
-			return null;
+			return new GetNoteDetailsResponse
+			{
+				Success = false,
+				Message = "Note not found or access denied."
+			};
 		}
 
 		var note = noteResult.Value;
 
 		return new GetNoteDetailsResponse
 		{
-			Id = note.Id,
-			Title = note.Title,
-			Content = note.Content,
-			AiSummary = note.AiSummary,
-			Tags = note.Tags,
-			CreatedAt = note.CreatedAt,
-			UpdatedAt = note.UpdatedAt
+			Success = true,
+			Note = new NoteDetailsDto
+			{
+				Id = note.Id,
+				Title = note.Title,
+				Content = note.Content,
+				AiSummary = note.AiSummary,
+				Tags = note.Tags,
+				IsArchived = note.IsArchived,
+				CreatedAt = note.CreatedAt,
+				UpdatedAt = note.UpdatedAt
+			}
 		};
 	}
 
 }
 
 public record GetNoteDetailsResponse
+{
+	public bool Success { get; init; }
+
+	public string? Message { get; init; }
+
+	public NoteDetailsDto? Note { get; init; }
+}
+
+public record NoteDetailsDto
 {
 	public ObjectId Id { get; init; }
 
@@ -66,6 +84,8 @@ public record GetNoteDetailsResponse
 	public string? AiSummary { get; init; }
 
 	public string? Tags { get; init; }
+
+	public bool IsArchived { get; init; }
 
 	public DateTime CreatedAt { get; init; }
 

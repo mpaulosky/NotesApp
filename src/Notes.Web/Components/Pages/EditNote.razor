@@ -1,0 +1,186 @@
+@page "/notes/edit/{id}"
+@using global::Notes.Web.Features.Notes.GetNoteDetails
+@using global::Notes.Web.Features.Notes.UpdateNote
+@using MediatR
+@inject IMediator Mediator
+@inject NavigationManager NavigationManager
+@attribute [Authorize]
+
+<PageHeadingComponent Level="1" HeaderText="@_pageTitle" />
+
+@if (_isLoading)
+{
+	<LoadingComponent />
+}
+else if (_note == null)
+{
+	<ErrorAlertComponent Message="Note not found or access denied." />
+}
+else
+{
+	<div class="container-card">
+		<EditForm Model="@_note" OnValidSubmit="HandleValidSubmit">
+			<DataAnnotationsValidator />
+			<ValidationSummary class="text-red-500 mb-4" />
+
+			<div class="mb-4">
+				<label for="title" class="block text-sm font-medium text-gray-300 mb-2">Title</label>
+				<InputText id="title" @bind-Value="_note.Title" class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none" />
+			</div>
+
+			<div class="mb-4">
+				<label for="content" class="block text-sm font-medium text-gray-300 mb-2">Content</label>
+				<InputTextArea id="content" @bind-Value="_note.Content" rows="10" class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none" />
+			</div>
+
+			<div class="mb-4">
+				<label class="flex items-center space-x-2">
+					<InputCheckbox @bind-Value="_note.IsArchived" class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500 focus:ring-2" />
+					<span class="text-sm font-medium text-gray-300">Archive this note</span>
+				</label>
+			</div>
+
+			@if (!string.IsNullOrEmpty(_errorMessage))
+			{
+				<ErrorAlertComponent Message="@_errorMessage" />
+			}
+
+			<div class="flex gap-4">
+				<button type="submit" disabled="@_isSaving" class="btn-primary">
+					@(_isSaving ? "Saving..." : "Save")
+				</button>
+				<button type="button" @onclick="Cancel" class="btn-secondary">
+					Cancel
+				</button>
+			</div>
+		</EditForm>
+	</div>
+}
+
+@code {
+	[Parameter]
+	public string Id { get; set; } = string.Empty;
+
+	[CascadingParameter]
+	private Task<AuthenticationState>? AuthenticationState { get; set; }
+
+	private const string _pageTitle = "Edit Note";
+	private NoteEditModel? _note;
+	private bool _isLoading = true;
+	private bool _isSaving = false;
+	private string? _errorMessage;
+	private string _userSubject = string.Empty;
+
+	protected override async Task OnInitializedAsync()
+	{
+		if (AuthenticationState is not null)
+		{
+			var state = await AuthenticationState;
+			_userSubject = state.User.Claims
+				.Where(c => c.Type.Equals(System.Security.Claims.ClaimTypes.NameIdentifier))
+				.Select(c => c.Value)
+				.FirstOrDefault() ?? string.Empty;
+		}
+
+		await LoadNote();
+	}
+
+	private async Task LoadNote()
+	{
+		_isLoading = true;
+		try
+		{
+			if (!ObjectId.TryParse(Id, out var objectId))
+			{
+				_errorMessage = "Invalid note ID.";
+				_note = null;
+				return;
+			}
+
+			var query = new GetNoteDetailsQuery
+			{
+				Id = objectId,
+				UserSubject = _userSubject
+			};
+
+			var response = await Mediator.Send(query);
+
+			if (response.Success && response.Note != null)
+			{
+				_note = new NoteEditModel
+				{
+					Id = response.Note.Id,
+					Title = response.Note.Title,
+					Content = response.Note.Content,
+					IsArchived = response.Note.IsArchived
+				};
+			}
+			else
+			{
+				_errorMessage = response.Message ?? "Failed to load note.";
+				_note = null;
+			}
+		}
+		catch (Exception ex)
+		{
+			_errorMessage = $"Error loading note: {ex.Message}";
+			_note = null;
+		}
+		finally
+		{
+			_isLoading = false;
+		}
+	}
+
+	private async Task HandleValidSubmit()
+	{
+		if (_note == null) return;
+
+		_isSaving = true;
+		_errorMessage = null;
+
+		try
+		{
+			var command = new UpdateNoteCommand
+			{
+				Id = _note.Id,
+				Title = _note.Title,
+				Content = _note.Content,
+				IsArchived = _note.IsArchived,
+				UserSubject = _userSubject
+			};
+
+			var response = await Mediator.Send(command);
+
+			if (response.Success)
+			{
+				NavigationManager.NavigateTo("/notes");
+			}
+			else
+			{
+				_errorMessage = response.Message ?? "Failed to update note.";
+			}
+		}
+		catch (Exception ex)
+		{
+			_errorMessage = $"Error updating note: {ex.Message}";
+		}
+		finally
+		{
+			_isSaving = false;
+		}
+	}
+
+	private void Cancel()
+	{
+		NavigationManager.NavigateTo("/notes");
+	}
+
+	private class NoteEditModel
+	{
+		public ObjectId Id { get; set; }
+		public string Title { get; set; } = string.Empty;
+		public string Content { get; set; } = string.Empty;
+		public bool IsArchived { get; set; }
+	}
+}
