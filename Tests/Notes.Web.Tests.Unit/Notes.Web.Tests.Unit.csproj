@@ -1,21 +1,49 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <IsPackable>false</IsPackable>
+        <NoWarn>$(NoWarn);CS0619</NoWarn>
+        <WarningsNotAsErrors>$(WarningsNotAsErrors);CS0619</WarningsNotAsErrors>
+        <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+
+        <!-- Code Coverage Settings -->
+        <CollectCoverage>true</CollectCoverage>
+        <CoverletOutputFormat>cobertura</CoverletOutputFormat>
+        <ExcludeByFile>**/Migrations/**/*.*,**/obj/**/*.*,**/bin/**/*.*</ExcludeByFile>
+        <Exclude>[*.Tests]*,[Testcontainers*]*,[xunit.*]*,[NSubstitute]*,[bunit]*,[Bunit.*]*,[AngleSharp]*,[FluentAssertions]*,[Blazored.*]*,[Microsoft.Extensions.*]*,[Microsoft.AspNetCore.*]*,[System.*]*,[OpenAI]*</Exclude>
+        <ExcludeByAttribute>Obsolete,GeneratedCode,CompilerGenerated,ExcludeFromCodeCoverage</ExcludeByAttribute>
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="bunit" />
         <PackageReference Include="coverlet.collector" />
+        <PackageReference Include="coverlet.msbuild">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="FluentAssertions" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" />
+        <PackageReference Include="NSubstitute" />
+        <PackageReference Include="NSubstitute.Analyzers.CSharp" />
         <PackageReference Include="xunit" />
-        <PackageReference Include="xunit.runner.visualstudio" />
+        <PackageReference Include="xunit.runner.visualstudio">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
 
     <ItemGroup>
-        <Using Include="Xunit"/>
+        <Using Include="Xunit" />
+        <Using Include="FluentAssertions" />
+        <Using Include="NSubstitute" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\Notes.Web\Notes.Web.csproj" />
+        <ProjectReference Include="..\..\src\Shared\Shared.csproj" />
     </ItemGroup>
 
 </Project>

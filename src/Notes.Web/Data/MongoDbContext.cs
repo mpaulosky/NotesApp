@@ -3,11 +3,16 @@
 // File Name :     MongoDbContext.cs
 // Company :       mpaulosky
 // Author :        Matthew Paulosky
-// Solution Name : ArticlesSite
+// Solution Name : NotesSite
 // Project Name :  Web
 // =======================================================
 
-namespace Web.Data;
+using MongoDB.Driver;
+
+using Shared.Entities;
+using Shared.Interfaces;
+
+namespace Notes.Web.Data;
 
 /// <summary>
 ///   MongoDB Context using native MongoDB Driver
@@ -25,10 +30,8 @@ public class MongoDbContext : IMongoDbContext
 		_database = mongoClient.GetDatabase(databaseName);
 	}
 
-	public IMongoCollection<Article> Articles => _database.GetCollection<Article>("Articles");
-
-	public IMongoCollection<Category> Categories => _database.GetCollection<Category>("Categories");
-
+	public IMongoCollection<Note> Notes => _database.GetCollection<Note>("Notes");
+	
 	public IMongoDatabase Database => _database;
 
 }

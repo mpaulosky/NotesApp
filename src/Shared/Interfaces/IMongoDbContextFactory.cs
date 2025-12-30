@@ -3,24 +3,24 @@
 // File Name :     IMongoDbContextFactory.cs
 // Company :       mpaulosky
 // Author :        Matthew Paulosky
-// Solution Name : Note
-sSite
+// Solution Name : NotesSite
 // Project Name :  Web
 // =======================================================
 
-namespace Notes.Web.Data;
 
-/// <summary>
-///   Abstraction for a design-time factory that can create an <see cref="IMongoDbContext" />.
-///   This allows the factory to be injected or mocked in tests if needed.
-/// </summary>
-public interface IMongoDbContextFactory
-{
+namespace Shared.Interfaces;
 
 	/// <summary>
-	///   Create an instance of <see cref="IMongoDbContext" /> for the provided args.
+	///   Abstraction for a design-time factory that can create an <see cref="IMongoDbContext" />.
+	///   This allows the factory to be injected or mocked in tests if needed.
 	/// </summary>
-	/// <returns>A new <see cref="IMongoDbContext" />.</returns>
-	IMongoDbContext CreateDbContext();
+	public interface IMongoDbContextFactory
+	{
 
-}
+		/// <summary>
+		///   Create an instance of <see cref="IMongoDbContext" /> for the provided args.
+		/// </summary>
+		/// <returns>A new <see cref="IMongoDbContext" />.</returns>
+		IMongoDbContext CreateDbContext();
+
+	}

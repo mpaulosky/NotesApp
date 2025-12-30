@@ -6,4 +6,16 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Bogus" />
+      <PackageReference Include="MongoDB.Bson" />
+      <PackageReference Include="MongoDB.Driver" />
+      <PackageReference Include="WaffleGenerator.Bogus" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Entities\" />
+      <Folder Include="Fakes\" />
+    </ItemGroup>
+
 </Project>

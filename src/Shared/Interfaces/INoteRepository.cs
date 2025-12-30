@@ -1,29 +1,40 @@
 // =======================================================
 // Copyright (c) 2025. All rights reserved.
-// File Name :     IArticleRepository.cs
+// File Name :     INoteRepository.cs
 // Company :       mpaulosky
 // Author :        Matthew Paulosky
-// Solution Name : ArticlesSite
+// Solution Name : NotesSite
 // Project Name :  Shared
 // =======================================================
 
+using System.Linq.Expressions;
+
+using MongoDB.Bson;
+
+using Shared.Abstractions;
+using Shared.Entities;
+
 namespace Shared.Interfaces;
 
-public interface IArticleRepository
+public interface INoteRepository
 {
 
-	Task<Result<Article?>> GetArticleByIdAsync(ObjectId id);
+	Task<Result<Note?>> GetNoteByIdAsync(ObjectId id);
 
-	Task<Result<Article?>> GetArticle(string dateString, string slug);
+	Task<Result<IEnumerable<Note>?>> GetNotes();
 
-	Task<Result<IEnumerable<Article>?>> GetArticles();
+	Task<Result<IEnumerable<Note>?>> GetNotes(Expression<Func<Note, bool>> where);
 
-	Task<Result<IEnumerable<Article>?>> GetArticles(Expression<Func<Article, bool>> where);
+	Task<Result<IEnumerable<Note>?>> GetNotes(Expression<Func<Note, bool>> where, int skip, int take);
 
-	Task<Result<Article>> AddArticle(Article post);
+	Task<Result<int>> GetNoteCount(Expression<Func<Note, bool>> where);
 
-	Task<Result<Article>> UpdateArticle(Article post);
+	Task<Result> AddNote(Note post);
 
-	Task ArchiveArticle(string slug);
+	Task<Result> UpdateNote(Note post);
+
+	Task<Result> DeleteNote(Note post);
+
+	Task<Result> ArchiveNote(Note post);
 
 }

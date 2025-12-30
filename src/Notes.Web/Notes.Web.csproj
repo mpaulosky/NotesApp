@@ -5,6 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<UserSecretsId>c219804b-21bd-4af1-809a-5bdb2a686a51</UserSecretsId>
+		<RootNamespace>Notes.Web</RootNamespace>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -13,7 +14,22 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Aspire.StackExchange.Redis.OutputCaching"/>
+		<PackageReference Include="Blazored.LocalStorage" />
+		<PackageReference Include="MongoDB.Bson" />
+		<PackageReference Include="MongoDB.Driver" />
+		<PackageReference Include="AspNetCore.HealthChecks.MongoDb" />
+		<PackageReference Include="Auth0.AspNetCore.Authentication" />
+		<PackageReference Include="MediatR" />
+		<PackageReference Include="MongoDB.EntityFrameworkCore" />
+		<PackageReference Include="OpenAI" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" />
+		<PackageReference Include="System.ClientModel" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="Notes.Web.Tests.Unit"/>
+		<InternalsVisibleTo Include="Notes.Tests.Architecture"/>
+		<InternalsVisibleTo Include="Notes,Web.Tests.Inntegration"/>
 	</ItemGroup>
 
 	<!-- Optimized CSS build - only runs when source CSS changes -->

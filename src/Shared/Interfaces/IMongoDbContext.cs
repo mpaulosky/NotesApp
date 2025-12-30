@@ -3,8 +3,7 @@
 // File Name :     IMongoDbContext.cs
 // Company :       mpaulosky
 // Author :        Matthew Paulosky
-// Solution Name : Note
-sSite
+// Solution Name : NotesSite
 // Project Name :  Web
 // =======================================================
 
@@ -12,7 +11,7 @@ using MongoDB.Driver;
 
 using Shared.Entities;
 
-namespace Notes.Web.Data;
+namespace Shared.Interfaces;
 
 /// <summary>
 ///   Interface for MongoDB context using a native driver

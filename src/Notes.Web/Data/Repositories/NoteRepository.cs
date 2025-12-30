@@ -1,9 +1,9 @@
 // =======================================================
 // Copyright (c) 2025. All rights reserved.
-// File Name :     ArticleRepository.cs
+// File Name :     NoteRepository.cs
 // Company :       mpaulosky
 // Author :        Matthew Paulosky
-// Solution Name : ArticlesSite
+// Solution Name : NotesSite
 // Project Name :  Web
 // =======================================================
 
@@ -12,80 +12,53 @@ using System.Linq.Expressions;
 namespace Notes.Web.Data.Repositories;
 
 /// <summary>
-/// Article repository implementation using native MongoDB.Driver with factory pattern.
+/// Note repository implementation using native MongoDB.Driver with a factory pattern.
 /// </summary>
-public class ArticleRepository
-(
-		IMongoDbContextFactory contextFactory
-) : IArticleRepository
+public class NoteRepository(IMongoDbContextFactory contextFactory) : INoteRepository
 {
 
 	/// <summary>
 	/// Gets an article by its unique identifier.
 	/// </summary>
 	/// <param name="id">The ObjectId of the article.</param>
-	/// <returns>A <see cref="Result{Article}"/> containing the article if found, or an error message.</returns>
-	public async Task<Result<Article?>> GetArticleByIdAsync(ObjectId id)
+	/// <returns>A <see cref="Result"/> containing the article if found, or an error message.</returns>
+	public async Task<Result<Note?>> GetNoteByIdAsync(ObjectId id)
 	{
 		try
 		{
 			IMongoDbContext context = contextFactory.CreateDbContext();
 
-			Article? article = await context.Notes
+			Note? article = await context.Notes
 					.Find(a => a.Id == id)
 					.FirstOrDefaultAsync();
 
-			return Result.Ok<Article?>(article);
+			return Result.Ok<Note?>(article);
 		}
 		catch (Exception ex)
 		{
-			return Result.Fail<Article?>($"Error getting article by id: {ex.Message}");
-		}
-	}
-
-	/// <summary>
-	/// Gets an article by its date string and slug.
-	/// </summary>
-	/// <param name="dateString">The date string of the article.</param>
-	/// <param name="slug">The slug of the article.</param>
-	/// <returns>A <see cref="Result{Article}"/> containing the article if found, or an error message.</returns>
-	public async Task<Result<Article?>> GetArticle(string dateString, string slug)
-	{
-		try
-		{
-			IMongoDbContext context = contextFactory.CreateDbContext();
-
-			Article? article = await context.Notes
-					.Find(a => a.Slug == slug)
-					.FirstOrDefaultAsync();
-
-			return Result.Ok<Article?>(article);
-		}
-		catch (Exception ex)
-		{
-			return Result.Fail<Article?>($"Error getting article: {ex.Message}");
+			return Result.Fail<Note?>($"Error getting article by id: {ex.Message}");
 		}
 	}
 
 	/// <summary>
 	/// Gets all non-archived articles.
 	/// </summary>
-	/// <returns>A <see cref="Result{IEnumerable{Article}}"/> containing the articles or an error message.</returns>
-	public async Task<Result<IEnumerable<Article>?>> GetArticles()
+	/// <returns>A <see cref="Result{IEnumerable{Note}}"/> containing the articles or an error message.</returns>
+	public async Task<Result<IEnumerable<Note>?>> GetNotes()
 	{
 		try
 		{
 			IMongoDbContext context = contextFactory.CreateDbContext();
 
-			List<Article>? articles = await context.Notes
+			List<Note>? articles = await context.Notes
 					.Find(_ => true)
 					.ToListAsync();
 
-			return Result.Ok<IEnumerable<Article>?>(articles);
+			return Result.Ok<IEnumerable<Note>?>(articles);
 		}
 		catch (Exception ex)
 		{
-			return Result.Fail<IEnumerable<Article>?>($"Error getting articles: {ex.Message}");
+			return Result.Fail<IEnumerable<Note>?>($"Error getting articles: {ex.Message}");
 		}
 	}
 
@@ -93,22 +66,71 @@ public class ArticleRepository
 	/// Gets articles matching a specified predicate.
 	/// </summary>
 	/// <param name="where">The predicate to filter articles.</param>
-	/// <returns>A <see cref="Result{IEnumerable{Article}}"/> containing the filtered articles or an error message.</returns>
-	public async Task<Result<IEnumerable<Article>?>> GetArticles(Expression<Func<Article, bool>> where)
+	/// <returns>A <see cref="Result{IEnumerable{Note}}"/> containing the filtered articles or an error message.</returns>
+	public async Task<Result<IEnumerable<Note>?>> GetNotes(Expression<Func<Note, bool>> where)
 	{
 		try
 		{
 			IMongoDbContext context = contextFactory.CreateDbContext();
 
-			List<Article>? articles = await context.Notes
+			List<Note>? articles = await context.Notes
 					.Find(where)
 					.ToListAsync();
 
-			return Result.Ok<IEnumerable<Article>?>(articles);
+			return Result.Ok<IEnumerable<Note>?>(articles);
 		}
 		catch (Exception ex)
 		{
-			return Result.Fail<IEnumerable<Article>?>($"Error getting articles: {ex.Message}");
+			return Result.Fail<IEnumerable<Note>?>($"Error getting articles: {ex.Message}");
+		}
+	}
+
+	/// <summary>
+	/// Gets articles matching a specified predicate with pagination.
+	/// </summary>
+	/// <param name="where"></param>
+	/// <param name="skip"></param>
+	/// <param name="take"></param>
+	/// <returns></returns>
+	public async Task<Result<IEnumerable<Note>?>> GetNotes(Expression<Func<Note, bool>> where, int skip, int take)
+	{
+		try
+		{
+			IMongoDbContext context = contextFactory.CreateDbContext();
+
+			List<Note>? articles = await context.Notes
+					.Find(where)
+					.Skip(skip)
+					.Limit(take)
+					.ToListAsync();
+
+			return Result.Ok<IEnumerable<Note>?>(articles);
+		}
+		catch (Exception ex)
+		{
+			return Result.Fail<IEnumerable<Note>?>($"Error getting articles: {ex.Message}");
+		}
+	}
+
+	/// <summary>
+	/// Gets the count of articles matching a specified predicate.
+	/// </summary>
+	/// <param name="where"></param>
+	/// <returns></returns>
+	public async Task<Result<int>> GetNoteCount(Expression<Func<Note, bool>> where)
+	{
+		try
+		{
+			IMongoDbContext context = contextFactory.CreateDbContext();
+
+			var count = await context.Notes
+					.CountDocumentsAsync(where);
+
+			return Result.Ok((int)count);
+		}
+		catch (Exception ex)
+		{
+			return Result.Fail<int>($"Error getting article count: {ex.Message}");
 		}
 	}
 
@@ -116,19 +138,19 @@ public class ArticleRepository
 	/// Adds a new article to the database.
 	/// </summary>
 	/// <param name="post">The article to add.</param>
-	/// <returns>A <see cref="Result{Article}"/> containing the added article or an error message.</returns>
-	public async Task<Result<Article>> AddArticle(Article post)
+	/// <returns>A <see cref="Result"/> containing the added article or an error message.</returns>
+	public async Task<Result> AddNote(Note post)
 	{
 		try
 		{
 			IMongoDbContext context = contextFactory.CreateDbContext();
 			await context.Notes.InsertOneAsync(post);
 
-			return Result.Ok(post);
+			return Result.Ok();
 		}
 		catch (Exception ex)
 		{
-			return Result.Fail<Article>($"Error adding article: {ex.Message}");
+			return Result.Fail($"Error adding article: {ex.Message}");
 		}
 	}
 
@@ -136,31 +158,66 @@ public class ArticleRepository
 	/// Updates an existing article in the database.
 	/// </summary>
 	/// <param name="post">The article to update.</param>
-	/// <returns>A <see cref="Result{Article}"/> containing the updated article or an error message.</returns>
-	public async Task<Result<Article>> UpdateArticle(Article post)
+	/// <returns>A <see cref="Result"/> containing the updated article or an error message.</returns>
+	public async Task<Result> UpdateNote(Note post)
 	{
 		try
 		{
 			IMongoDbContext context = contextFactory.CreateDbContext();
 			await context.Notes.ReplaceOneAsync(a => a.Id == post.Id, post);
 
-			return Result.Ok(post);
+			return Result.Ok();
 		}
 		catch (Exception ex)
 		{
-			return Result.Fail<Article>($"Error updating article: {ex.Message}");
+			return Result.Fail($"Error updating article: {ex.Message}");
+		}
+	}
+
+	/// <summary>
+	/// Deletes an article from the database.
+	/// </summary>
+	/// <param name="post"></param>
+	/// <returns></returns>
+	public async Task<Result> DeleteNote(Note post)
+	{
+		try
+		{
+			IMongoDbContext context = contextFactory.CreateDbContext();
+			await context.Notes.DeleteOneAsync(a => a.Id == post.Id);
+
+			return Result.Ok();
+		}
+		catch (Exception ex)
+		{
+			return Result.Fail($"Error deleting article: {ex.Message}");
 		}
 	}
 
 	/// <summary>
 	/// Archives an article by its slug.
 	/// </summary>
-	/// <param name="slug">The slug of the article to archive.</param>
-	public async Task ArchiveArticle(string slug)
+	/// <param name="post"></param>
+	public async Task<Result> ArchiveNote(Note post)
 	{
-		IMongoDbContext context = contextFactory.CreateDbContext();
-		UpdateDefinition<Article>? update = Builders<Article>.Update.Set(a => a.IsArchived, true);
-		await context.Notes.UpdateOneAsync(a => a.Slug == slug, update);
+
+		try
+		{
+
+			IMongoDbContext context = contextFactory.CreateDbContext();
+			
+			post.IsArchived = true;
+			
+			await context.Notes.ReplaceOneAsync(a => a.Id == post.Id, post);
+
+			return Result.Ok();
+
+		}
+		catch (Exception ex)
+		{
+			return Result.Fail($"Error updating article: {ex.Message}");
+		}
+
 	}
 
 }

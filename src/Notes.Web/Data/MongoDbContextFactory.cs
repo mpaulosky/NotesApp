@@ -3,11 +3,15 @@
 // File Name :     MongoDbContextFactory.cs
 // Company :       mpaulosky
 // Author :        Matthew Paulosky
-// Solution Name : ArticlesSite
+// Solution Name : NotesSite
 // Project Name :  Web
 // =======================================================
 
-namespace Web.Data;
+using MongoDB.Driver;
+
+using Shared.Interfaces;
+
+namespace Notes.Web.Data;
 
 /// <summary>
 ///   A factory for <see cref="MongoDbContext" /> that can create instances
@@ -38,10 +42,10 @@ public sealed class MongoDbContextFactory : IMongoDbContextFactory
 			connectionString = "mongodb://localhost:27017";
 		}
 
-		string? databaseName = configuration["DatabaseName"]
-													?? configuration["ConnectionStrings:DatabaseName"]
-													?? Environment.GetEnvironmentVariable("DatabaseName")
-													?? "ArticleSiteDb";
+		var databaseName = configuration["DatabaseName"]
+											?? configuration["ConnectionStrings:DatabaseName"]
+											?? Environment.GetEnvironmentVariable("DatabaseName")
+											?? "NotesSiteDb";
 
 		// Create MongoDB client from connection string
 		MongoClient mongoClient = new(connectionString);

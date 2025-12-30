@@ -3,7 +3,7 @@
 // File Name :     Constants.cs
 // Company :       mpaulosky
 // Author :        Matthew Paulosky
-// Solution Name : ArticlesSite
+// Solution Name : NotesSite
 // Project Name :  Shared
 // =======================================================
 
@@ -19,8 +19,8 @@ public static class Constants
 	// Backwards-compatible service/resource names moved from the legacy Services class
 	public const string Server = "Server";
 
-	// Tests historically expect a `Database` constant with value "notesdb".
-	public const string Database = "notesdb";
+	// Tests historically expect a `Database` constant with the value "NotesDb".
+	public const string Database = "NotesDb";
 
 	public const string DatabaseName = "NotesDb";
 
@@ -33,6 +33,5 @@ public static class Constants
 	public const string RedisCache = "RedisCache";
 
 	public const string Website = "WebApp";
-
 
 }

@@ -3,20 +3,17 @@
 // File Name :     MongoDbServiceExtensions.cs
 // Company :       mpaulosky
 // Author :        Matthew Paulosky
-// Solution Name : ArticlesSite
+// Solution Name : NotesSite
 // Project Name :  Web
 // =======================================================
 
-using Web.Components.Features.Articles.ArticlesList;
-using Web.Components.Features.Articles.ArticleCreate;
-using Web.Components.Features.Articles.ArticleDetails;
-using Web.Components.Features.Articles.ArticleEdit;
-using Web.Components.Features.Categories.CategoryEdit;
-using Web.Components.Features.Categories.CategoryDetails;
-using Web.Components.Features.Categories.CategoriesList;
-using Web.Components.Features.Categories.CategoryCreate;
+using Shared.Interfaces;
 
-namespace Web.Data;
+using MongoDB.Driver;
+
+using Notes.Web.Data.Repositories;
+
+namespace Notes.Web.Data;
 
 /// <summary>
 ///   Provides extension methods for registering MongoDB-related services, context factories, and repositories
@@ -80,27 +77,10 @@ public static class MongoDbServiceExtensions
 	/// <param name="services">The <see cref="IServiceCollection" /> to register services with.</param>
 	private static void RegisterRepositoriesAndHandlers(IServiceCollection services)
 	{
+
 		// Register repositories
-		services.AddScoped<IArticleRepository, ArticleRepository>();
-		services.AddScoped<ICategoryRepository, CategoryRepository>();
+		services.AddScoped<INoteRepository, NoteRepository>();
 
-		// Register validators
-		services.AddScoped<IValidator<CategoryDto>, Shared.Validators.CategoryDtoValidator>();
-		services.AddScoped<IValidator<ArticleDto>, Shared.Validators.ArticleDtoValidator>();
-		services.AddScoped<IValidator<Category>, Shared.Validators.CategoryValidator>();
-		services.AddScoped<IValidator<Article>, Shared.Validators.ArticleValidator>();
-
-		// Article Handlers
-		services.AddScoped<GetArticles.IGetArticlesHandler, GetArticles.Handler>();
-		services.AddScoped<GetArticle.IGetArticleHandler, GetArticle.Handler>();
-		services.AddScoped<CreateArticle.ICreateArticleHandler, CreateArticle.Handler>();
-		services.AddScoped<EditArticle.IEditArticleHandler, EditArticle.Handler>();
-		
-		// Category Handlers
-		services.AddScoped<EditCategory.IEditCategoryHandler, EditCategory.Handler>();
-		services.AddScoped<GetCategory.IGetCategoryHandler, GetCategory.Handler>();
-		services.AddScoped<CreateCategory.ICreateCategoryHandler, CreateCategory.Handler>();
-		services.AddScoped<GetCategories.IGetCategoriesHandler, GetCategories.Handler>();
 	}
 
 	/// <summary>

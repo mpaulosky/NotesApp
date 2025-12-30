@@ -7,6 +7,8 @@
 // Project Name :  Shared
 // =======================================================
 
+using Shared.Entities;
+
 namespace Shared.Abstractions;
 
 public class Result
@@ -72,7 +74,7 @@ public sealed class Result<T> : Result
 		return new Result<T>(default, false, errorMessage);
 	}
 
-	public static implicit operator T? (Result<T> result)
+	public static implicit operator T?(Result<T> result)
 	{
 		ArgumentNullException.ThrowIfNull(result);
 

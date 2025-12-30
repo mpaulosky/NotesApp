@@ -1,131 +1,42 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer components {
-	/* Button styles */
+	.container-card {
+		@apply mx-auto max-w-7xl mb-6 p-6 sm:px-4 md:px-6 lg:px-8 rounded-md shadow-md shadow-blue-500 bg-gray-100 dark:bg-gray-800 transition-colors duration-300;
+	}
+
+	.btn-secondary {
+		@apply inline-block font-semibold px-5 py-2 rounded-lg text-base leading-tight border-none cursor-pointer transition shadow-sm bg-linear-to-r from-blue-600 to-blue-900 text-white hover:from-blue-900 hover:to-blue-600 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 active:bg-blue-800 dark:from-blue-400 dark:to-blue-700 dark:hover:from-blue-700 dark:hover:to-blue-400 dark:focus:ring-blue-300;
+	}
+
 	.btn-primary {
-		@apply bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors;
+		@apply inline-block font-semibold px-5 py-2 rounded-lg text-base leading-tight border-none cursor-pointer transition shadow-sm bg-linear-to-r from-green-600 to-green-900 text-white hover:from-green-900 hover:to-green-600 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 active:bg-green-800 dark:from-green-400 dark:to-green-700 dark:hover:from-green-700 dark:hover:to-green-400 dark:focus:ring-green-300;
 	}
 
-	/* Layout components */
-	.page {
-		@apply relative flex flex-col md:flex-row;
+	.btn-warning {
+		@apply inline-block font-semibold px-5 py-2 rounded-lg text-base leading-tight border-none cursor-pointer transition shadow-sm bg-linear-to-r from-red-600 to-red-900 text-white hover:from-red-900 hover:to-red-600 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 active:bg-red-800 dark:from-red-400 dark:to-red-700 dark:hover:from-red-700 dark:hover:to-red-400 dark:focus:ring-red-300;
 	}
 
-	.sidebar {
-		background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
-		@apply md:w-64 md:h-screen md:sticky md:top-0;
+	.edit-label {
+		@apply block text-gray-800 dark:text-gray-300 font-semibold mb-2;
 	}
 
-	main {
-		@apply flex-1;
+	.input-textbox {
+		@apply bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-2 border-blue-500 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 w-full;
 	}
+}
 
-	.top-row {
-		@apply bg-gray-100 border-b border-gray-300 flex items-center justify-end h-14;
-	}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	@apply font-bold tracking-tight text-gray-900 dark:text-gray-50;
+}
 
-	.top-row a,
-	.top-row .btn-link {
-		@apply whitespace-nowrap ml-6 no-underline hover:underline;
-	}
-
-	.top-row a:first-child,
-	.top-row .btn-link:first-child {
-		@apply overflow-hidden text-ellipsis;
-	}
-
-	@media (max-width: 640px) {
-		.top-row {
-			@apply justify-between;
-		}
-
-		.top-row a,
-		.top-row .btn-link {
-			@apply ml-0;
-		}
-	}
-
-	@media (min-width: 768px) {
-		.top-row {
-			@apply sticky top-0 z-10;
-		}
-
-		.top-row.auth a:first-child {
-			@apply flex-1 text-right w-0;
-		}
-
-		.top-row {
-			@apply pl-8 pr-6;
-		}
-
-		article {
-			@apply pl-8 pr-6;
-		}
-	}
-
-	.content {
-		@apply md:pl-8 md:pr-6;
-	}
-
-	/* NavMenu components */
-	.navbar-toggler {
-		@apply appearance-none cursor-pointer w-14 h-10 text-white absolute top-2 right-4 border border-white/10 md:hidden;
-		background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
-			no-repeat center/1.75rem rgba(255, 255, 255, 0.1);
-	}
-
-	.navbar-toggler:checked {
-		@apply bg-white/50;
-	}
-
-	.navbar-brand {
-		@apply text-lg;
-	}
-
-	.nav-item {
-		@apply text-sm pb-2;
-	}
-
-	.nav-item:first-of-type {
-		@apply pt-4;
-	}
-
-	.nav-item:last-of-type {
-		@apply pb-4;
-	}
-
-	.nav-item a {
-		@apply text-gray-300 rounded h-12 flex items-center leading-[3rem];
-	}
-
-	.nav-item a.active {
-		@apply bg-white/[0.37] text-white;
-	}
-
-	.nav-item a:hover {
-		@apply bg-white/10 text-white;
-	}
-
-	.nav-scrollable {
-		@apply hidden;
-	}
-
-	.navbar-toggler:checked ~ .nav-scrollable {
-		@apply block;
-	}
-
-	@media (min-width: 768px) {
-		.nav-scrollable {
-			@apply block h-[calc(100vh-3.5rem)] overflow-y-auto;
-		}
-	}
-
-	/* Error UI */
-	#blazor-error-ui {
-		@apply bg-yellow-100 bottom-0 shadow-md hidden fixed left-0 px-5 py-2.5 w-full z-[1000];
-	}
-
-	#blazor-error-ui .dismiss {
-		@apply cursor-pointer absolute right-3 top-2;
-	}
+a {
+	@apply p-1 font-semibold text-gray-900 hover:text-blue-900 dark:text-gray-50 dark:hover:text-blue-700 transition-colors duration-300;
 }
