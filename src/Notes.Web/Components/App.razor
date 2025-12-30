@@ -1,20 +1,52 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" class="light">
 
 <head>
-	<meta charset="utf-8"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<base href="/"/>
-	<link rel="stylesheet" href="@Assets["css/app.css"]"/>
-	<link rel="stylesheet" href="@Assets["Notes.Web.styles.css"]"/>
-	<ImportMap/>
-	<link rel="icon" type="image/png" href="favicon.png"/>
-	<HeadOutlet/>
+    <title>Articles Site</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/" />
+
+    <!-- Initialize theme early to prevent FOUC (Flash of Unstyled Content) -->
+    <script>
+        (function () {
+            const theme = localStorage.getItem('theme') || 'light';
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+                document.documentElement.classList.remove('light');
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.documentElement.classList.add('light');
+            }
+        })();
+    </script>
+
+    <link rel="stylesheet" href="@Assets["css/app.css"]" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+
+    <!-- MarkdownEditor CSS from PSC.Blazor.Components.MarkdownEditor package -->
+    <link rel="stylesheet" href="/_content/PSC.Blazor.Components.MarkdownEditor/css/markdowneditor.css" />
+    <link rel="stylesheet" href="/_content/PSC.Blazor.Components.MarkdownEditor/css/easymde.min.css" />
+
+    <HeadOutlet />
 </head>
 
 <body>
-<Routes/>
-<script src="@Assets["_framework/blazor.web.js"]"></script>
+    <Routes />
+    <ReconnectModal />
+
+    <!-- Blazor framework script -->
+    <script src="@Assets["_framework/blazor.web.js"]"></script>
+
+    <!-- MarkdownEditor JavaScript from PSC.Blazor.Components.MarkdownEditor package -->
+    <script src="/_content/PSC.Blazor.Components.MarkdownEditor/js/easymde.min.js"></script>
+    <script src="/_content/PSC.Blazor.Components.MarkdownEditor/js/markdownEditor.js"></script>
+
+    <!-- Custom markdown editor initialization wrapper -->
+    <script src="js/markdown-editor-init.js"></script>
+
+    <!-- Custom text editor helpers -->
+    <script src="js/text-editor-helpers.js"></script>
 </body>
 
 </html>

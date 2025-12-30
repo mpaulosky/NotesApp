@@ -1,0 +1,13 @@
+<div class="container-card p-2 text-center">
+
+	<a href="/" class="transition-colors duration-200">©@_currentYear @_companyName All rights reserved.</a>
+
+</div>
+
+@code {
+
+	private const string _companyName = "MPaulosky Co.";
+
+	private static readonly string _currentYear = DateTime.Now.Year.ToString();
+
+}
