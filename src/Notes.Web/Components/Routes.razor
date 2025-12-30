@@ -1,6 +1,22 @@
-﻿<Router AppAssembly="typeof(Program).Assembly">
-	<Found Context="routeData">
-		<RouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)"/>
-		<FocusOnNavigate RouteData="routeData" Selector="h1"/>
-	</Found>
-</Router>
+﻿@* Add global render mode *@
+@rendermode InteractiveServer
+
+<CascadingAuthenticationState>
+	<Router AppAssembly="typeof(Program).Assembly">
+		<Found Context="routeData">
+			<AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(MainLayout)">
+				<NotAuthorized>
+					<ErrorPageComponent ErrorType="404" ShadowColor="shadow-red-500" TextColor="red-600"></ErrorPageComponent>
+				</NotAuthorized>
+				<Authorizing>
+					<div class="main">Please wait...</div>
+				</Authorizing>
+			</AuthorizeRouteView>
+		</Found>
+		<NotFound>
+			<LayoutView Layout="typeof(MainLayout)">
+				<ErrorPageComponent ErrorType="404" ShadowColor="shadow-yellow-500" TextColor="yellow-600"></ErrorPageComponent>
+			</LayoutView>
+		</NotFound>
+	</Router>
+</CascadingAuthenticationState>

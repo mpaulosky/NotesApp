@@ -1,0 +1,25 @@
+@*
+  TextEditor component - requires PSC.Blazor.Components.MarkdownEditor package
+  Temporarily disabled until package is added
+*@
+
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+
+<div class="text-editor-placeholder">
+	<p>TextEditor component placeholder - requires PSC Markdown Editor package</p>
+	<textarea @bind="Content" class="form-control" rows="10"></textarea>
+</div>
+
+@code {
+	[Parameter, EditorRequired]
+	public bool AlignmentOptionsEnabled { get; set; }
+
+	private string _content = string.Empty;
+
+	[Parameter, EditorRequired]
+	public string Content { get => _content; set => _content = value; }
+
+	[Parameter]
+	public EventCallback<string> ContentChanged { get; set; }
+}

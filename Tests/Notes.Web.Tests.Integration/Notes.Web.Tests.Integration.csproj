@@ -5,17 +5,33 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <IsPackable>false</IsPackable>
+        <ParallelizeTestCollections>false</ParallelizeTestCollections>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="coverlet.collector" />
+        <PackageReference Include="FluentAssertions" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" />
+        <PackageReference Include="NSubstitute" />
+        <PackageReference Include="NSubstitute.Analyzers.CSharp" />
+        <PackageReference Include="Testcontainers" />
+        <PackageReference Include="Testcontainers.MongoDb" />
         <PackageReference Include="xunit" />
-        <PackageReference Include="xunit.runner.visualstudio" />
+        <PackageReference Include="xunit.runner.visualstudio">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\Notes.Web\Notes.Web.csproj" />
+        <ProjectReference Include="..\..\src\Shared\Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>
         <Using Include="Xunit"/>
+        <Using Include="FluentAssertions"/>
+        <Using Include="NSubstitute"/>
     </ItemGroup>
 
 </Project>

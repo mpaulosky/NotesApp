@@ -1,7 +1,32 @@
 ﻿@page "/"
 
-<PageTitle>Home</PageTitle>
+@inject ILogger<Home> Logger
 
-<h1>Hello, world!</h1>
+<PageHeadingComponent Level="1" HeaderText="@_pageTitle" />
 
-Welcome to your new app.
+<!-- Hero Section -->
+<section class="relative bg-linear-to-r from-blue-600 to-blue-800 dark:from-blue-700 dark:to-blue-900 rounded-lg shadow-xl overflow-hidden mb-8 transition-colors duration-300">
+  <div class="px-6 py-16 sm:px-8 lg:px-10 text-center">
+    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4">
+      Welcome to the Notes App
+    </h1>
+    <p class="text-xl sm:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto">
+      Create and manage your notes efficiently
+    </p>
+    <div class="flex flex-wrap justify-center gap-4">
+      <a href="/notes" class="btn-primary">Browse All Notes</a>
+      <a href="/about" class="btn-secondary">Learn More</a>
+    </div>
+  </div>
+</section>
+
+<section class="mb-8">
+  <div class="mb-6">
+    <h2 class="text-3xl font-bold text-gray-100 mb-2">Welcome</h2>
+    <p class="text-gray-400">Start creating your notes</p>
+  </div>
+</section>
+
+@code {
+	private const string _pageTitle = "Home";
+}

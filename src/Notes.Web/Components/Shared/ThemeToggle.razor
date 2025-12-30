@@ -1,0 +1,67 @@
+@implements IAsyncDisposable
+@inject ILocalStorageService LocalStorage
+@inject IJSRuntime Js
+
+<div class="flex justify-end items-center space-x-2">
+	<span class="font-semibold text-gray-900 dark:text-gray-50">Light</span>
+	<label for="toggle"
+		class="w-9 h-5 flex items-center bg-gray-300 rounded-full p-1 cursor-pointer duration-300 ease-in-out dark:bg-gray-600">
+		<div
+			class="w-4 h-4 rounded-full bg-white shadow-md transform duration-300 ease-in-out @(_darkMode ? "translate-x-3" : "")">
+		</div>
+	</label>
+    <span class="font-semibold text-gray-900 dark:text-gray-50">Dark</span>
+	<input id="toggle" type="checkbox" class="hidden" checked="@_darkMode" @onchange="ToggleTheme" />
+</div>
+
+@code {
+	private bool _darkMode;
+	private IJSObjectReference _themeModule = null!;
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			// Import the co-located JS module using the correct path from the web root.
+			// For components in Components/Shared, the path must be ./Components/Shared/ThemeToggle.razor.js
+			_themeModule = await Js.InvokeAsync<IJSObjectReference>("import", "./Components/Shared/ThemeToggle.razor.js");
+
+			// Get the saved theme from localStorage, defaulting to "light" if not set
+			var theme = await LocalStorage.GetItemAsStringAsync("theme");
+			if (string.IsNullOrEmpty(theme))
+			{
+				theme = "light";
+				await LocalStorage.SetItemAsStringAsync("theme", theme);
+			}
+
+			_darkMode = theme == "dark";
+			await _themeModule.InvokeVoidAsync("setTheme", theme);
+			StateHasChanged();
+		}
+	}
+
+	private async Task ToggleTheme(ChangeEventArgs args)
+	{
+		_darkMode = (bool)args.Value!;
+		var theme = _darkMode ? "dark" : "light";
+
+		await LocalStorage.SetItemAsStringAsync("theme", theme);
+		await _themeModule.InvokeVoidAsync("setTheme", theme);
+		StateHasChanged();
+	}
+
+	async ValueTask IAsyncDisposable.DisposeAsync()
+	{
+		if (_themeModule is not null)
+		{
+			try
+			{
+				await _themeModule.DisposeAsync();
+			}
+			catch (JSDisconnectedException)
+			{
+				// Ignore exceptions during disposal if the circuit has been disconnected
+			}
+		}
+	}
+}
