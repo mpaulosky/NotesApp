@@ -118,7 +118,7 @@ jobs:
                 echo "::notice::Tests passed for $proj"
               fi
             fi
-          done < <( find tests -type f -name "*.csproj" 2>/dev/null || true )
+          done < <( find Tests -type f -name "*.csproj" 2>/dev/null || true )
 
           # Fail the step if any tests failed
           if [ "$overall_rc" -ne 0 ]; then
