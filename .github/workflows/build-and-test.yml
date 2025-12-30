@@ -100,16 +100,30 @@ jobs:
               name=$(basename "$proj" .csproj)
               echo "Running tests for: $proj -> test-results/${name}.trx"
 
-              set +e
-              dotnet test "$proj" \
-                --configuration Release \
-                --no-build \
-                --no-restore \
-                --collect:"XPlat Code Coverage" \
-                --logger "trx;LogFileName=${name}.trx" \
-                --results-directory "test-results"
-              rc=$?
-              set -e
+              # Skip code coverage for Architecture tests to avoid Coverlet/NetArchTest conflict
+              if [[ "$name" == *"Architecture"* ]]; then
+                echo "::notice::Skipping code coverage for Architecture tests (Coverlet conflicts with NetArchTest)"
+                set +e
+                dotnet test "$proj" \
+                  --configuration Release \
+                  --no-build \
+                  --no-restore \
+                  --logger "trx;LogFileName=${name}.trx" \
+                  --results-directory "test-results"
+                rc=$?
+                set -e
+              else
+                set +e
+                dotnet test "$proj" \
+                  --configuration Release \
+                  --no-build \
+                  --no-restore \
+                  --collect:"XPlat Code Coverage" \
+                  --logger "trx;LogFileName=${name}.trx" \
+                  --results-directory "test-results"
+                rc=$?
+                set -e
+              fi
 
               if [ "$rc" -ne 0 ]; then
                 echo "::error::Tests failed for $proj (exit code $rc)"
