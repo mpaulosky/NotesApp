@@ -1,7 +1,6 @@
 @page "/notes/create"
 @using global::Notes.Web.Features.Notes.CreateNote
-@using MediatR
-@inject IMediator Mediator
+@inject INoteService NoteService
 @inject NavigationManager NavigationManager
 @attribute [Authorize]
 
@@ -67,14 +66,7 @@
 
 		try
 		{
-			var command = new CreateNoteCommand
-			{
-				Title = _note.Title,
-				Content = _note.Content,
-				UserSubject = _userSubject
-			};
-
-			var response = await Mediator.Send(command);
+			var response = await NoteService.CreateNoteAsync(_note.Title, _note.Content, _userSubject);
 
 			if (response != null)
 			{
