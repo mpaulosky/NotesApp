@@ -28,6 +28,8 @@ public class BlazorComponentTests : BaseArchitectureTest
 			.And()
 			.AreClasses()
 			.And()
+			.AreNotNested() // Exclude nested types like form models
+			.And()
 			.DoNotHaveNameEndingWith("Base")
 			.And()
 			.DoNotHaveNameStartingWith("_") // Exclude compiler-generated like _Imports
@@ -87,7 +89,7 @@ public class BlazorComponentTests : BaseArchitectureTest
 		foreach (var componentType in componentTypes)
 		{
 			var hasRouteAttribute = componentType.GetCustomAttributes(
-				typeof(Microsoft.AspNetCore.Components.RouteAttribute), true).Any();
+				typeof(Microsoft.AspNetCore.Components.RouteAttribute), true).Length != 0;
 
 			// If component has Route attribute, it should be in Pages namespace or similar
 			if (hasRouteAttribute &&
@@ -124,8 +126,8 @@ public class BlazorComponentTests : BaseArchitectureTest
 			{
 				// Check if public property is settable and doesn't have Parameter or CascadingParameter attribute
 				if (property.CanWrite &&
-						!property.GetCustomAttributes(typeof(ParameterAttribute), true).Any() &&
-						!property.GetCustomAttributes(typeof(CascadingParameterAttribute), true).Any())
+						property.GetCustomAttributes(typeof(ParameterAttribute), true).Length == 0 &&
+						property.GetCustomAttributes(typeof(CascadingParameterAttribute), true).Length == 0)
 				{
 					invalidComponents.Add($"{componentType.FullName}.{property.Name}");
 				}
