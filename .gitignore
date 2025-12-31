@@ -373,3 +373,4 @@ MigrationBackup/
 **/.idea/**/libraries
 *.sw[a-p]
 .idea_modules/
+coverage.cobertura.xml

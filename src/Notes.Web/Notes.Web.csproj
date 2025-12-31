@@ -29,7 +29,7 @@
 	<ItemGroup>
 		<InternalsVisibleTo Include="Notes.Web.Tests.Unit"/>
 		<InternalsVisibleTo Include="Notes.Tests.Architecture"/>
-		<InternalsVisibleTo Include="Notes,Web.Tests.Inntegration"/>
+		<InternalsVisibleTo Include="Notes.Web.Tests.Integration"/>
 	</ItemGroup>
 
 	<!-- Optimized CSS build - only runs when source CSS changes -->

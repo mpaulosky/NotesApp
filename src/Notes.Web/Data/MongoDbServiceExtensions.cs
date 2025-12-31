@@ -81,6 +81,9 @@ public static class MongoDbServiceExtensions
 		// Register repositories
 		services.AddScoped<INoteRepository, NoteRepository>();
 
+		// Register services
+		services.AddScoped<INoteService, NoteService>();
+
 	}
 
 	/// <summary>
