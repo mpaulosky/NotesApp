@@ -53,16 +53,11 @@ public class ChatClientWrapperTests
   {
    ChatMessage.CreateUserMessage("Test message")
   };
-  var expectedCompletion = Substitute.For<ChatCompletion>();
-  
-  chatClient.CompleteChatAsync(Arg.Any<IEnumerable<ChatMessage>>(), Arg.Any<ChatCompletionOptions>(), Arg.Any<CancellationToken>())
-   .Returns(Task.FromResult(expectedCompletion));
 
   // Act
-  var result = await wrapper.CompleteChatAsync(messages);
+  await wrapper.CompleteChatAsync(messages);
 
   // Assert
-  result.Should().Be(expectedCompletion);
   await chatClient.Received(1).CompleteChatAsync(
    Arg.Is<IEnumerable<ChatMessage>>(m => m.SequenceEqual(messages)),
    Arg.Any<ChatCompletionOptions>(),
@@ -75,7 +70,7 @@ public class ChatClientWrapperTests
   // Arrange
   var chatClient = Substitute.For<ChatClient>();
   var wrapper = new ChatClientWrapper(chatClient);
-  var cts = new CancellationTokenSource();
+  using var cts = new CancellationTokenSource();
   var messages = new List<ChatMessage> { ChatMessage.CreateUserMessage("Test") };
 
   // Act

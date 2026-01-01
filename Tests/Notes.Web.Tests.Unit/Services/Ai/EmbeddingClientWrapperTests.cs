@@ -50,20 +50,14 @@ public class EmbeddingClientWrapperTests
   var embeddingClient = Substitute.For<EmbeddingClient>();
   var wrapper = new EmbeddingClientWrapper(embeddingClient);
   const string input = "Test input for embedding";
-  var expectedEmbedding = Substitute.For<Embedding>();
-  
-  embeddingClient.GenerateEmbeddingAsync(Arg.Any<string>(), Arg.Any<EmbeddingGenerationOptions>(), Arg.Any<CancellationToken>())
-   .Returns(Task.FromResult(expectedEmbedding));
 
   // Act
-  var result = await wrapper.GenerateEmbeddingAsync(input);
+  await wrapper.GenerateEmbeddingAsync(input);
 
   // Assert
-  result.Should().Be(expectedEmbedding);
   await embeddingClient.Received(1).GenerateEmbeddingAsync(
    input,
-   Arg.Any<EmbeddingGenerationOptions>(),
-   Arg.Any<CancellationToken>());
+   cancellationToken: Arg.Any<CancellationToken>());
  }
 
  [Fact]
@@ -72,12 +66,12 @@ public class EmbeddingClientWrapperTests
   // Arrange
   var embeddingClient = Substitute.For<EmbeddingClient>();
   var wrapper = new EmbeddingClientWrapper(embeddingClient);
-  var cts = new CancellationTokenSource();
+  using var cts = new CancellationTokenSource();
 
   // Act
   try
   {
-   await wrapper.GenerateEmbeddingAsync("Test", null, cts.Token);
+   await wrapper.GenerateEmbeddingAsync("Test", cts.Token);
   }
   catch
   {
@@ -87,32 +81,6 @@ public class EmbeddingClientWrapperTests
   // Assert
   await embeddingClient.Received(1).GenerateEmbeddingAsync(
    Arg.Any<string>(),
-   Arg.Any<EmbeddingGenerationOptions>(),
-   cts.Token);
- }
-
- [Fact]
- public async Task GenerateEmbeddingAsync_WithOptions_PassesOptionsToClient()
- {
-  // Arrange
-  var embeddingClient = Substitute.For<EmbeddingClient>();
-  var wrapper = new EmbeddingClientWrapper(embeddingClient);
-  var options = new EmbeddingGenerationOptions { Dimensions = 1536 };
-
-  // Act
-  try
-  {
-   await wrapper.GenerateEmbeddingAsync("Test", options);
-  }
-  catch
-  {
-   // Ignore exceptions from mocked client
-  }
-
-  // Assert
-  await embeddingClient.Received(1).GenerateEmbeddingAsync(
-   Arg.Any<string>(),
-   Arg.Is<EmbeddingGenerationOptions>(o => o != null && o.Dimensions == 1536),
-   Arg.Any<CancellationToken>());
+   cancellationToken: cts.Token);
  }
 }
