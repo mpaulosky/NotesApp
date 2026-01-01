@@ -2,7 +2,7 @@
 
 ## New Aspire and BlazorServer Hosted Application
 
-### A tool to Create and Manage Notes using a MongoDb to store documents. It includes unit, integration, and architecture tests with the integration tests using a docker container for the tests it creates a MongoDb database to ensure clean isolated data for the tests
+A tool to create and manage notes using MongoDB to store documents. It includes unit, integration, and architecture tests. The integration tests use a Docker container to create a MongoDB database, ensuring clean, isolated data for each test run.
 
 ****
 
