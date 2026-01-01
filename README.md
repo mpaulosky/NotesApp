@@ -1,6 +1,17 @@
 # NotesApp
 
+## New Aspire and BlazorServer Hosted Application
+
+A tool to create and manage notes using MongoDB to store documents. It includes unit, integration, and architecture tests. The integration tests use a Docker container to create a MongoDB database, ensuring clean, isolated data for each test run.
+
+****
+
 [![Build and Test](https://github.com/mpaulosky/NotesApp/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/mpaulosky/NotesApp/actions/workflows/build-and-test.yml)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mpaulosky/NotesApp?logo=github)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/mpaulosky/NotesApp/main?label=last%20commit%20main&logo=github)
+
+****
+
 [![codecov](https://codecov.io/gh/mpaulosky/NotesApp/branch/main/graph/badge.svg)](https://codecov.io/gh/mpaulosky/NotesApp)
 [![Issues Open](https://img.shields.io/github/issues/mpaulosky/NotesApp?logo=github)](https://github.com/mpaulosky/NotesApp/issues)
 [![Issues Closed](https://img.shields.io/github/issues-closed/mpaulosky/NotesApp?logo=github)](https://github.com/mpaulosky/NotesApp/issues?q=is%3Aissue+is%3Aclosed)
@@ -8,7 +19,14 @@
 [![Pull Requests Closed](https://img.shields.io/github/issues-pr-closed/mpaulosky/NotesApp?logo=github)](https://github.com/mpaulosky/NotesApp/pulls?q=is%3Apr+is%3Aclosed)
 [![License](https://img.shields.io/github/license/mpaulosky/NotesApp?logo=github)](https://github.com/mpaulosky/NotesApp/blob/main/LICENSE.txt)
 
-A modern, cloud-enabled notes application built with Blazor Web App, .NET Aspire, MongoDB, and Auth0 authentication.
+****
+
+[![Issues Open](https://img.shields.io/github/issues/mpaulosky/NotesApp?logo=github)](https://github.com/mpaulosky/NotesApp/issues)
+[![Issues Closed](https://img.shields.io/github/issues-closed/mpaulosky/NotesApp?logo=github)](https://github.com/mpaulosky/NotesApp/issues?q=is%3Aissue+is%3Aclosed)
+[![Pull Requests Open](https://img.shields.io/github/issues-pr/mpaulosky/NotesApp?logo=github)](https://github.com/mpaulosky/NotesApp/pulls)
+[![Pull Requests Closed](https://img.shields.io/github/issues-pr-closed/mpaulosky/NotesApp?logo=github)](https://github.com/mpaulosky/NotesApp/pulls?q=is%3Apr+is%3Aclosed)
+
+****
 
 ## 📋 Table of Contents
 
@@ -19,7 +37,7 @@ A modern, cloud-enabled notes application built with Blazor Web App, .NET Aspire
   - [Installation](#installation)
   - [Configuration](#configuration)
 - [Architecture](#-architecture)
-- [Running the Application](#-running-the-application)
+- [Running the Application](#️-running-the-application)
 - [Testing](#-testing)
 - [Documentation](#-documentation)
 - [Contributing](#-contributing)
@@ -153,7 +171,7 @@ dotnet user-secrets set "OpenAI:EmbeddingModel" "text-embedding-3-small"
 
 This project follows **Vertical Slice Architecture** with **CQRS pattern**:
 
-```
+```text
 src/
 ├── Notes.AppHost/              # .NET Aspire orchestration
 ├── Notes.ServiceDefaults/      # Shared service configurations
@@ -180,6 +198,7 @@ Tests/
 ```
 
 Each feature slice contains:
+
 - Command/Query record
 - Response DTO record
 - Handler implementation
