@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<coverage line-rate="0.7323999999999999" branch-rate="0.6265" version="1.9" timestamp="1767133630" lines-covered="490" lines-valid="669" branches-covered="99" branches-valid="158">
+<coverage line-rate="0.7284" branch-rate="0.6265" version="1.9" timestamp="1767302845" lines-covered="491" lines-valid="674" branches-covered="99" branches-valid="158">
   <sources>
-    <source>E:\github\NotesApp\src\</source>
+    <source>/home/runner/work/NotesApp/NotesApp/src/</source>
   </sources>
   <packages>
     <package name="Notes.ServiceDefaults" line-rate="0" branch-rate="0" complexity="12">
       <classes>
-        <class name="Microsoft.Extensions.Hosting.Extensions" filename="Notes.ServiceDefaults\Extensions.cs" line-rate="0" branch-rate="0" complexity="12">
+        <class name="Microsoft.Extensions.Hosting.Extensions" filename="Notes.ServiceDefaults/Extensions.cs" line-rate="0" branch-rate="0" complexity="12">
           <methods>
             <method name="AddServiceDefaults" signature="(TBuilder)" line-rate="0" branch-rate="0" complexity="2">
               <lines>
@@ -224,9 +224,9 @@
         </class>
       </classes>
     </package>
-    <package name="Notes.Web" line-rate="0.8070999999999999" branch-rate="0.6736" complexity="186">
+    <package name="Notes.Web" line-rate="0.8017" branch-rate="0.6736" complexity="187">
       <classes>
-        <class name="Program" filename="Notes.Web\Program.cs" line-rate="0" branch-rate="0" complexity="2">
+        <class name="Program" filename="Notes.Web/Program.cs" line-rate="0" branch-rate="0" complexity="2">
           <methods>
             <method name="&lt;Main&gt;$" signature="(System.String[])" line-rate="0" branch-rate="0" complexity="2">
               <lines>
@@ -282,7 +282,7 @@
             <line number="39" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Components.User.Profile" filename="Notes.Web\Components\User\Profile.razor" line-rate="0.5832999999999999" branch-rate="0" complexity="8">
+        <class name="Notes.Web.Components.User.Profile" filename="Notes.Web/Components/User/Profile.razor" line-rate="0.5832999999999999" branch-rate="0" complexity="8">
           <methods>
             <method name="GetAllRoleClaims" signature="(System.Security.Claims.ClaimsPrincipal)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -372,7 +372,7 @@
             <line number="114" hits="18" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Components.Shared.ComponentHeadingComponent" filename="Notes.Web\Components\Shared\ComponentHeadingComponent.razor" line-rate="1" branch-rate="1" complexity="10">
+        <class name="Notes.Web.Components.Shared.ComponentHeadingComponent" filename="Notes.Web/Components/Shared/ComponentHeadingComponent.razor" line-rate="1" branch-rate="1" complexity="10">
           <methods>
             <method name="BuildRenderTree" signature="(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)" line-rate="1" branch-rate="1" complexity="10">
               <lines>
@@ -420,7 +420,7 @@
             <line number="33" hits="1" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Components.Shared.ErrorAlertComponent" filename="Notes.Web\Components\Shared\ErrorAlertComponent.razor" line-rate="1" branch-rate="1" complexity="2">
+        <class name="Notes.Web.Components.Shared.ErrorAlertComponent" filename="Notes.Web/Components/Shared/ErrorAlertComponent.razor" line-rate="1" branch-rate="1" complexity="2">
           <methods>
             <method name="BuildRenderTree" signature="(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)" line-rate="1" branch-rate="1" complexity="2">
               <lines>
@@ -454,7 +454,7 @@
             <line number="21" hits="5" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Components.Shared.ErrorPageComponent" filename="Notes.Web\Components\Shared\ErrorPageComponent.razor" line-rate="0.88" branch-rate="1" complexity="16">
+        <class name="Notes.Web.Components.Shared.ErrorPageComponent" filename="Notes.Web/Components/Shared/ErrorPageComponent.razor" line-rate="0.88" branch-rate="1" complexity="16">
           <methods>
             <method name="BuildRenderTree" signature="(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -546,7 +546,7 @@
             <line number="79" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Components.Shared.PageHeaderComponent" filename="Notes.Web\Components\Shared\PageHeaderComponent.razor" line-rate="1" branch-rate="1" complexity="6">
+        <class name="Notes.Web.Components.Shared.PageHeaderComponent" filename="Notes.Web/Components/Shared/PageHeaderComponent.razor" line-rate="1" branch-rate="1" complexity="6">
           <methods>
             <method name="BuildRenderTree" signature="(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)" line-rate="1" branch-rate="1" complexity="6">
               <lines>
@@ -582,7 +582,7 @@
             <line number="23" hits="2" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Components.Shared.PageHeadingComponent" filename="Notes.Web\Components\Shared\PageHeadingComponent.razor" line-rate="1" branch-rate="1" complexity="6">
+        <class name="Notes.Web.Components.Shared.PageHeadingComponent" filename="Notes.Web/Components/Shared/PageHeadingComponent.razor" line-rate="1" branch-rate="1" complexity="6">
           <methods>
             <method name="BuildRenderTree" signature="(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)" line-rate="1" branch-rate="1" complexity="6">
               <lines>
@@ -618,7 +618,7 @@
             <line number="23" hits="1" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Components.Shared.RedirectToLogin" filename="Notes.Web\Components\Shared\RedirectToLogin.razor" line-rate="1" branch-rate="1" complexity="1">
+        <class name="Notes.Web.Components.Shared.RedirectToLogin" filename="Notes.Web/Components/Shared/RedirectToLogin.razor" line-rate="1" branch-rate="1" complexity="1">
           <methods>
             <method name="OnInitialized" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -636,7 +636,7 @@
             <line number="10" hits="3" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Components.Shared.TextEditor" filename="Notes.Web\Components\Shared\TextEditor.razor" line-rate="1" branch-rate="1" complexity="2">
+        <class name="Notes.Web.Components.Shared.TextEditor" filename="Notes.Web/Components/Shared/TextEditor.razor" line-rate="1" branch-rate="1" complexity="2">
           <methods>
             <method name="get_Content" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -654,7 +654,7 @@
             <line number="18" hits="7" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Components.Shared.ThemeToggle" filename="Notes.Web\Components\Shared\ThemeToggle.razor" line-rate="1" branch-rate="1" complexity="1">
+        <class name="Notes.Web.Components.Shared.ThemeToggle" filename="Notes.Web/Components/Shared/ThemeToggle.razor" line-rate="1" branch-rate="1" complexity="1">
           <methods>
             <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -666,95 +666,95 @@
             <line number="19" hits="23" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Components.Pages.CreateNote" filename="Notes.Web\Components\Pages\CreateNote.razor" line-rate="0" branch-rate="1" complexity="2">
+        <class name="Notes.Web.Components.Pages.CreateNote" filename="Notes.Web/Components/Pages/CreateNote.razor" line-rate="0" branch-rate="1" complexity="2">
           <methods>
             <method name="Cancel" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="99" hits="0" branch="False" />
-                <line number="100" hits="0" branch="False" />
-                <line number="101" hits="0" branch="False" />
+                <line number="91" hits="0" branch="False" />
+                <line number="92" hits="0" branch="False" />
+                <line number="93" hits="0" branch="False" />
               </lines>
             </method>
             <method name=".ctor" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
+                <line number="45" hits="0" branch="False" />
                 <line number="46" hits="0" branch="False" />
-                <line number="47" hits="0" branch="False" />
-                <line number="49" hits="0" branch="False" />
+                <line number="48" hits="0" branch="False" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="99" hits="0" branch="False" />
-            <line number="100" hits="0" branch="False" />
-            <line number="101" hits="0" branch="False" />
+            <line number="91" hits="0" branch="False" />
+            <line number="92" hits="0" branch="False" />
+            <line number="93" hits="0" branch="False" />
+            <line number="45" hits="0" branch="False" />
             <line number="46" hits="0" branch="False" />
-            <line number="47" hits="0" branch="False" />
-            <line number="49" hits="0" branch="False" />
+            <line number="48" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Components.Pages.EditNote" filename="Notes.Web\Components\Pages\EditNote.razor" line-rate="0" branch-rate="0" complexity="6">
+        <class name="Notes.Web.Components.Pages.EditNote" filename="Notes.Web/Components/Pages/EditNote.razor" line-rate="0" branch-rate="0" complexity="6">
           <methods>
             <method name="BuildRenderTree" signature="(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)" line-rate="0" branch-rate="0" complexity="4">
               <lines>
-                <line number="11" hits="0" branch="True" condition-coverage="0% (0/2)">
+                <line number="10" hits="0" branch="True" condition-coverage="0% (0/2)">
                   <conditions>
                     <condition number="65" type="jump" coverage="0%" />
                   </conditions>
                 </line>
-                <line number="12" hits="0" branch="False" />
-                <line number="14" hits="0" branch="False" />
-                <line number="15" hits="0" branch="True" condition-coverage="0% (0/2)">
+                <line number="11" hits="0" branch="False" />
+                <line number="13" hits="0" branch="False" />
+                <line number="14" hits="0" branch="True" condition-coverage="0% (0/2)">
                   <conditions>
                     <condition number="100" type="jump" coverage="0%" />
                   </conditions>
                 </line>
-                <line number="16" hits="0" branch="False" />
-                <line number="18" hits="0" branch="False" />
-                <line number="20" hits="0" branch="False" />
-                <line number="58" hits="0" branch="False" />
+                <line number="15" hits="0" branch="False" />
+                <line number="17" hits="0" branch="False" />
+                <line number="19" hits="0" branch="False" />
+                <line number="60" hits="0" branch="False" />
               </lines>
             </method>
             <method name="Cancel" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="175" hits="0" branch="False" />
-                <line number="176" hits="0" branch="False" />
-                <line number="177" hits="0" branch="False" />
+                <line number="162" hits="0" branch="False" />
+                <line number="163" hits="0" branch="False" />
+                <line number="164" hits="0" branch="False" />
               </lines>
             </method>
             <method name=".ctor" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="69" hits="0" branch="False" />
-                <line number="70" hits="0" branch="False" />
+                <line number="71" hits="0" branch="False" />
                 <line number="72" hits="0" branch="False" />
+                <line number="74" hits="0" branch="False" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="11" hits="0" branch="True" condition-coverage="0% (0/2)">
+            <line number="10" hits="0" branch="True" condition-coverage="0% (0/2)">
               <conditions>
                 <condition number="65" type="jump" coverage="0%" />
               </conditions>
             </line>
-            <line number="12" hits="0" branch="False" />
-            <line number="14" hits="0" branch="False" />
-            <line number="15" hits="0" branch="True" condition-coverage="0% (0/2)">
+            <line number="11" hits="0" branch="False" />
+            <line number="13" hits="0" branch="False" />
+            <line number="14" hits="0" branch="True" condition-coverage="0% (0/2)">
               <conditions>
                 <condition number="100" type="jump" coverage="0%" />
               </conditions>
             </line>
-            <line number="16" hits="0" branch="False" />
-            <line number="18" hits="0" branch="False" />
-            <line number="20" hits="0" branch="False" />
-            <line number="58" hits="0" branch="False" />
-            <line number="175" hits="0" branch="False" />
-            <line number="176" hits="0" branch="False" />
-            <line number="177" hits="0" branch="False" />
-            <line number="69" hits="0" branch="False" />
-            <line number="70" hits="0" branch="False" />
+            <line number="15" hits="0" branch="False" />
+            <line number="17" hits="0" branch="False" />
+            <line number="19" hits="0" branch="False" />
+            <line number="60" hits="0" branch="False" />
+            <line number="162" hits="0" branch="False" />
+            <line number="163" hits="0" branch="False" />
+            <line number="164" hits="0" branch="False" />
+            <line number="71" hits="0" branch="False" />
             <line number="72" hits="0" branch="False" />
+            <line number="74" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Components.Pages.Error" filename="Notes.Web\Components\Pages\Error.razor" line-rate="0.625" branch-rate="0.625" complexity="9">
+        <class name="Notes.Web.Components.Pages.Error" filename="Notes.Web/Components/Pages/Error.razor" line-rate="0.625" branch-rate="0.625" complexity="9">
           <methods>
             <method name="BuildRenderTree" signature="(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)" line-rate="0.25" branch-rate="0.5" complexity="2">
               <lines>
@@ -808,147 +808,147 @@
             <line number="40" hits="9" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Components.Pages.ListNotes" filename="Notes.Web\Components\Pages\ListNotes.razor" line-rate="0" branch-rate="0" complexity="19">
+        <class name="Notes.Web.Components.Pages.ListNotes" filename="Notes.Web/Components/Pages/ListNotes.razor" line-rate="0" branch-rate="0" complexity="19">
           <methods>
             <method name="BuildRenderTree" signature="(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)" line-rate="0" branch-rate="0" complexity="18">
               <lines>
-                <line number="17" hits="0" branch="True" condition-coverage="0% (0/2)">
+                <line number="16" hits="0" branch="True" condition-coverage="0% (0/2)">
                   <conditions>
                     <condition number="122" type="jump" coverage="0%" />
                   </conditions>
                 </line>
-                <line number="18" hits="0" branch="False" />
-                <line number="20" hits="0" branch="False" />
-                <line number="21" hits="0" branch="True" condition-coverage="0% (0/4)">
+                <line number="17" hits="0" branch="False" />
+                <line number="19" hits="0" branch="False" />
+                <line number="20" hits="0" branch="True" condition-coverage="0% (0/4)">
                   <conditions>
                     <condition number="152" type="jump" coverage="0%" />
                     <condition number="173" type="jump" coverage="0%" />
                   </conditions>
                 </line>
-                <line number="22" hits="0" branch="False" />
-                <line number="24" hits="0" branch="False" />
-                <line number="26" hits="0" branch="False" />
-                <line number="28" hits="0" branch="True" condition-coverage="0% (0/2)">
+                <line number="21" hits="0" branch="False" />
+                <line number="23" hits="0" branch="False" />
+                <line number="25" hits="0" branch="False" />
+                <line number="27" hits="0" branch="True" condition-coverage="0% (0/2)">
                   <conditions>
                     <condition number="1089" type="jump" coverage="0%" />
                   </conditions>
                 </line>
-                <line number="29" hits="0" branch="False" />
-                <line number="32" hits="0" branch="False" />
-                <line number="34" hits="0" branch="True" condition-coverage="0% (0/2)">
+                <line number="28" hits="0" branch="False" />
+                <line number="31" hits="0" branch="False" />
+                <line number="33" hits="0" branch="True" condition-coverage="0% (0/2)">
                   <conditions>
                     <condition number="462" type="jump" coverage="0%" />
                   </conditions>
                 </line>
-                <line number="35" hits="0" branch="False" />
-                <line number="37" hits="0" branch="False" />
-                <line number="40" hits="0" branch="True" condition-coverage="0% (0/2)">
+                <line number="34" hits="0" branch="False" />
+                <line number="36" hits="0" branch="False" />
+                <line number="39" hits="0" branch="True" condition-coverage="0% (0/2)">
                   <conditions>
                     <condition number="695" type="jump" coverage="0%" />
                   </conditions>
                 </line>
-                <line number="44" hits="0" branch="False" />
-                <line number="45" hits="0" branch="True" condition-coverage="0% (0/2)">
+                <line number="43" hits="0" branch="False" />
+                <line number="44" hits="0" branch="True" condition-coverage="0% (0/2)">
                   <conditions>
                     <condition number="833" type="jump" coverage="0%" />
                   </conditions>
                 </line>
-                <line number="46" hits="0" branch="False" />
-                <line number="48" hits="0" branch="True" condition-coverage="0% (0/2)">
+                <line number="45" hits="0" branch="False" />
+                <line number="47" hits="0" branch="True" condition-coverage="0% (0/2)">
                   <conditions>
                     <condition number="976" type="jump" coverage="0%" />
                   </conditions>
                 </line>
+                <line number="48" hits="0" branch="False" />
                 <line number="49" hits="0" branch="False" />
                 <line number="50" hits="0" branch="False" />
-                <line number="51" hits="0" branch="False" />
+                <line number="52" hits="0" branch="False" />
                 <line number="53" hits="0" branch="False" />
-                <line number="54" hits="0" branch="False" />
-                <line number="56" hits="0" branch="False" />
-                <line number="58" hits="0" branch="False" />
-                <line number="60" hits="0" branch="True" condition-coverage="0% (0/2)">
+                <line number="55" hits="0" branch="False" />
+                <line number="57" hits="0" branch="False" />
+                <line number="59" hits="0" branch="True" condition-coverage="0% (0/2)">
                   <conditions>
                     <condition number="1137" type="jump" coverage="0%" />
                   </conditions>
                 </line>
-                <line number="61" hits="0" branch="False" />
-                <line number="63" hits="0" branch="False" />
+                <line number="60" hits="0" branch="False" />
+                <line number="62" hits="0" branch="False" />
               </lines>
             </method>
             <method name=".ctor" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="72" hits="0" branch="False" />
-                <line number="74" hits="0" branch="False" />
+                <line number="71" hits="0" branch="False" />
+                <line number="73" hits="0" branch="False" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="17" hits="0" branch="True" condition-coverage="0% (0/2)">
+            <line number="16" hits="0" branch="True" condition-coverage="0% (0/2)">
               <conditions>
                 <condition number="122" type="jump" coverage="0%" />
               </conditions>
             </line>
-            <line number="18" hits="0" branch="False" />
-            <line number="20" hits="0" branch="False" />
-            <line number="21" hits="0" branch="True" condition-coverage="0% (0/4)">
+            <line number="17" hits="0" branch="False" />
+            <line number="19" hits="0" branch="False" />
+            <line number="20" hits="0" branch="True" condition-coverage="0% (0/4)">
               <conditions>
                 <condition number="152" type="jump" coverage="0%" />
                 <condition number="173" type="jump" coverage="0%" />
               </conditions>
             </line>
-            <line number="22" hits="0" branch="False" />
-            <line number="24" hits="0" branch="False" />
-            <line number="26" hits="0" branch="False" />
-            <line number="28" hits="0" branch="True" condition-coverage="0% (0/2)">
+            <line number="21" hits="0" branch="False" />
+            <line number="23" hits="0" branch="False" />
+            <line number="25" hits="0" branch="False" />
+            <line number="27" hits="0" branch="True" condition-coverage="0% (0/2)">
               <conditions>
                 <condition number="1089" type="jump" coverage="0%" />
               </conditions>
             </line>
-            <line number="29" hits="0" branch="False" />
-            <line number="32" hits="0" branch="False" />
-            <line number="34" hits="0" branch="True" condition-coverage="0% (0/2)">
+            <line number="28" hits="0" branch="False" />
+            <line number="31" hits="0" branch="False" />
+            <line number="33" hits="0" branch="True" condition-coverage="0% (0/2)">
               <conditions>
                 <condition number="462" type="jump" coverage="0%" />
               </conditions>
             </line>
-            <line number="35" hits="0" branch="False" />
-            <line number="37" hits="0" branch="False" />
-            <line number="40" hits="0" branch="True" condition-coverage="0% (0/2)">
+            <line number="34" hits="0" branch="False" />
+            <line number="36" hits="0" branch="False" />
+            <line number="39" hits="0" branch="True" condition-coverage="0% (0/2)">
               <conditions>
                 <condition number="695" type="jump" coverage="0%" />
               </conditions>
             </line>
-            <line number="44" hits="0" branch="False" />
-            <line number="45" hits="0" branch="True" condition-coverage="0% (0/2)">
+            <line number="43" hits="0" branch="False" />
+            <line number="44" hits="0" branch="True" condition-coverage="0% (0/2)">
               <conditions>
                 <condition number="833" type="jump" coverage="0%" />
               </conditions>
             </line>
-            <line number="46" hits="0" branch="False" />
-            <line number="48" hits="0" branch="True" condition-coverage="0% (0/2)">
+            <line number="45" hits="0" branch="False" />
+            <line number="47" hits="0" branch="True" condition-coverage="0% (0/2)">
               <conditions>
                 <condition number="976" type="jump" coverage="0%" />
               </conditions>
             </line>
+            <line number="48" hits="0" branch="False" />
             <line number="49" hits="0" branch="False" />
             <line number="50" hits="0" branch="False" />
-            <line number="51" hits="0" branch="False" />
+            <line number="52" hits="0" branch="False" />
             <line number="53" hits="0" branch="False" />
-            <line number="54" hits="0" branch="False" />
-            <line number="56" hits="0" branch="False" />
-            <line number="58" hits="0" branch="False" />
-            <line number="60" hits="0" branch="True" condition-coverage="0% (0/2)">
+            <line number="55" hits="0" branch="False" />
+            <line number="57" hits="0" branch="False" />
+            <line number="59" hits="0" branch="True" condition-coverage="0% (0/2)">
               <conditions>
                 <condition number="1137" type="jump" coverage="0%" />
               </conditions>
             </line>
-            <line number="61" hits="0" branch="False" />
-            <line number="63" hits="0" branch="False" />
-            <line number="72" hits="0" branch="False" />
-            <line number="74" hits="0" branch="False" />
+            <line number="60" hits="0" branch="False" />
+            <line number="62" hits="0" branch="False" />
+            <line number="71" hits="0" branch="False" />
+            <line number="73" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Components.Layout.FooterComponent" filename="Notes.Web\Components\Layout\FooterComponent.razor" line-rate="1" branch-rate="1" complexity="2">
+        <class name="Notes.Web.Components.Layout.FooterComponent" filename="Notes.Web/Components/Layout/FooterComponent.razor" line-rate="1" branch-rate="1" complexity="2">
           <methods>
             <method name="BuildRenderTree" signature="(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -966,7 +966,7 @@
             <line number="11" hits="1" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Components.Layout.MainLayout" filename="Notes.Web\Components\Layout\MainLayout.razor" line-rate="0.47609999999999997" branch-rate="0.3333" complexity="13">
+        <class name="Notes.Web.Components.Layout.MainLayout" filename="Notes.Web/Components/Layout/MainLayout.razor" line-rate="0.47609999999999997" branch-rate="0.3333" complexity="13">
           <methods>
             <method name="OnAfterRenderAsync" signature="(System.Boolean)" line-rate="1" branch-rate="1" complexity="4">
               <lines>
@@ -1056,7 +1056,7 @@
             <line number="71" hits="7" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Components.Layout.NavMenuComponent" filename="Notes.Web\Components\Layout\NavMenuComponent.razor" line-rate="1" branch-rate="1" complexity="1">
+        <class name="Notes.Web.Components.Layout.NavMenuComponent" filename="Notes.Web/Components/Layout/NavMenuComponent.razor" line-rate="1" branch-rate="1" complexity="1">
           <methods>
             <method name="BuildRenderTree" signature="(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -1068,7 +1068,7 @@
             <line number="3" hits="18" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Services.Auth0AuthenticationStateProvider" filename="Notes.Web\Services\Auth0AuthenticationStateProvider.cs" line-rate="1" branch-rate="0.9444" complexity="19">
+        <class name="Notes.Web.Services.Auth0AuthenticationStateProvider" filename="Notes.Web/Services/Auth0AuthenticationStateProvider.cs" line-rate="1" branch-rate="0.9444" complexity="19">
           <methods>
             <method name="GetAuthenticationStateAsync" signature="()" line-rate="1" branch-rate="0.9444" complexity="18">
               <lines>
@@ -1222,7 +1222,25 @@
             <line number="27" hits="13" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Services.Ai.OpenAiChatClientWrapper" filename="Notes.Web\Services\Ai\OpenAiChatClientWrapper.cs" line-rate="1" branch-rate="1" complexity="3">
+        <class name="Notes.Web.Services.Notes.NoteService" filename="Notes.Web/Services/Notes/NoteService.cs" line-rate="0" branch-rate="1" complexity="1">
+          <methods>
+            <method name=".ctor" signature="(MediatR.IMediator)" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="23" hits="0" branch="False" />
+                <line number="24" hits="0" branch="False" />
+                <line number="25" hits="0" branch="False" />
+                <line number="26" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="23" hits="0" branch="False" />
+            <line number="24" hits="0" branch="False" />
+            <line number="25" hits="0" branch="False" />
+            <line number="26" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="Notes.Web.Services.Ai.OpenAiChatClientWrapper" filename="Notes.Web/Services/Ai/OpenAiChatClientWrapper.cs" line-rate="1" branch-rate="1" complexity="3">
           <methods>
             <method name="CompleteChatAsync" signature="(System.Collections.Generic.IEnumerable`1&lt;OpenAI.Chat.ChatMessage&gt;,OpenAI.Chat.ChatCompletionOptions,System.Threading.CancellationToken)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -1258,7 +1276,7 @@
             <line number="31" hits="11" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Services.Ai.OpenAiEmbeddingClientWrapper" filename="Notes.Web\Services\Ai\OpenAiEmbeddingClientWrapper.cs" line-rate="0" branch-rate="0" complexity="3">
+        <class name="Notes.Web.Services.Ai.OpenAiEmbeddingClientWrapper" filename="Notes.Web/Services/Ai/OpenAiEmbeddingClientWrapper.cs" line-rate="0" branch-rate="0" complexity="3">
           <methods>
             <method name="GenerateEmbeddingAsync" signature="(System.String,System.Threading.CancellationToken)" line-rate="0" branch-rate="1" complexity="1">
               <lines>
@@ -1294,7 +1312,7 @@
             <line number="31" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Services.Ai.OpenAiService" filename="Notes.Web\Services\Ai\OpenAiService.cs" line-rate="0.8709" branch-rate="0.75" complexity="12">
+        <class name="Notes.Web.Services.Ai.OpenAiService" filename="Notes.Web/Services/Ai/OpenAiService.cs" line-rate="0.8709" branch-rate="0.75" complexity="12">
           <methods>
             <method name="CalculateCosineSimilarity" signature="(System.Single[],System.Single[])" line-rate="0.8" branch-rate="0.625" complexity="8">
               <lines>
@@ -1412,7 +1430,7 @@
             <line number="49" hits="22" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Features.Notes.UpdateNote.UpdateNoteHandler" filename="Notes.Web\Features\Notes\UpdateNote\UpdateNote.cs" line-rate="1" branch-rate="1" complexity="1">
+        <class name="Notes.Web.Features.Notes.UpdateNote.UpdateNoteHandler" filename="Notes.Web/Features/Notes/UpdateNote/UpdateNote.cs" line-rate="1" branch-rate="1" complexity="1">
           <methods>
             <method name=".ctor" signature="(Shared.Interfaces.INoteRepository,Notes.Web.Services.Ai.IAiService)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -1432,7 +1450,7 @@
             <line number="67" hits="6" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Features.Notes.SeedNotes.SeedNotesHandler" filename="Notes.Web\Features\Notes\SeedNotes\SeedNotes.cs" line-rate="1" branch-rate="1" complexity="2">
+        <class name="Notes.Web.Features.Notes.SeedNotes.SeedNotesHandler" filename="Notes.Web/Features/Notes/SeedNotes/SeedNotes.cs" line-rate="1" branch-rate="1" complexity="2">
           <methods>
             <method name="GetSampleNotes" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -1772,7 +1790,7 @@
             <line number="50" hits="25" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Features.Notes.SearchNotes.SearchNotesHandler" filename="Notes.Web\Features\Notes\SearchNotes\SearchNotes.cs" line-rate="1" branch-rate="1" complexity="1">
+        <class name="Notes.Web.Features.Notes.SearchNotes.SearchNotesHandler" filename="Notes.Web/Features/Notes/SearchNotes/SearchNotes.cs" line-rate="1" branch-rate="1" complexity="1">
           <methods>
             <method name=".ctor" signature="(Shared.Interfaces.INoteRepository)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -1790,7 +1808,7 @@
             <line number="55" hits="26" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Features.Notes.SearchNotes.SearchNotesResponse" filename="Notes.Web\Features\Notes\SearchNotes\SearchNotes.cs" line-rate="1" branch-rate="1" complexity="1">
+        <class name="Notes.Web.Features.Notes.SearchNotes.SearchNotesResponse" filename="Notes.Web/Features/Notes/SearchNotes/SearchNotes.cs" line-rate="1" branch-rate="1" complexity="1">
           <methods>
             <method name="get_TotalPages" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -1802,7 +1820,7 @@
             <line number="133" hits="5" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Features.Notes.ListNotes.ListNotesHandler" filename="Notes.Web\Features\Notes\ListNotes\ListNotes.cs" line-rate="1" branch-rate="1" complexity="1">
+        <class name="Notes.Web.Features.Notes.ListNotes.ListNotesHandler" filename="Notes.Web/Features/Notes/ListNotes/ListNotes.cs" line-rate="1" branch-rate="1" complexity="1">
           <methods>
             <method name=".ctor" signature="(Shared.Interfaces.INoteRepository)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -1820,7 +1838,7 @@
             <line number="54" hits="5" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Features.Notes.ListNotes.ListNotesResponse" filename="Notes.Web\Features\Notes\ListNotes\ListNotes.cs" line-rate="0" branch-rate="1" complexity="1">
+        <class name="Notes.Web.Features.Notes.ListNotes.ListNotesResponse" filename="Notes.Web/Features/Notes/ListNotes/ListNotes.cs" line-rate="0" branch-rate="1" complexity="1">
           <methods>
             <method name="get_TotalPages" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
@@ -1832,7 +1850,7 @@
             <line number="113" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Features.Notes.GetRelatedNotes.GetRelatedNotesHandler" filename="Notes.Web\Features\Notes\GetRelatedNotes\GetRelatedNotes.cs" line-rate="1" branch-rate="1" complexity="1">
+        <class name="Notes.Web.Features.Notes.GetRelatedNotes.GetRelatedNotesHandler" filename="Notes.Web/Features/Notes/GetRelatedNotes/GetRelatedNotes.cs" line-rate="1" branch-rate="1" complexity="1">
           <methods>
             <method name=".ctor" signature="(Shared.Interfaces.INoteRepository,Notes.Web.Services.Ai.IAiService)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -1852,7 +1870,7 @@
             <line number="57" hits="19" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Features.Notes.GetNoteDetails.GetNoteDetailsHandler" filename="Notes.Web\Features\Notes\GetNoteDetails\GetNoteDetails.cs" line-rate="1" branch-rate="1" complexity="1">
+        <class name="Notes.Web.Features.Notes.GetNoteDetails.GetNoteDetailsHandler" filename="Notes.Web/Features/Notes/GetNoteDetails/GetNoteDetails.cs" line-rate="1" branch-rate="1" complexity="1">
           <methods>
             <method name=".ctor" signature="(Shared.Interfaces.INoteRepository)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -1870,7 +1888,7 @@
             <line number="31" hits="5" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Features.Notes.DeleteNote.DeleteNoteHandler" filename="Notes.Web\Features\Notes\DeleteNote\DeleteNote.cs" line-rate="1" branch-rate="1" complexity="1">
+        <class name="Notes.Web.Features.Notes.DeleteNote.DeleteNoteHandler" filename="Notes.Web/Features/Notes/DeleteNote/DeleteNote.cs" line-rate="1" branch-rate="1" complexity="1">
           <methods>
             <method name=".ctor" signature="(Shared.Interfaces.INoteRepository)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -1888,7 +1906,7 @@
             <line number="31" hits="5" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Features.Notes.CreateNote.CreateNoteHandler" filename="Notes.Web\Features\Notes\CreateNote\CreateNote.cs" line-rate="1" branch-rate="1" complexity="1">
+        <class name="Notes.Web.Features.Notes.CreateNote.CreateNoteHandler" filename="Notes.Web/Features/Notes/CreateNote/CreateNote.cs" line-rate="1" branch-rate="1" complexity="1">
           <methods>
             <method name=".ctor" signature="(Shared.Interfaces.INoteRepository,Notes.Web.Services.Ai.IAiService)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -1908,7 +1926,7 @@
             <line number="53" hits="5" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Features.Notes.CreateNote.CreateNoteResponse" filename="Notes.Web\Features\Notes\CreateNote\CreateNote.cs" line-rate="1" branch-rate="1" complexity="1">
+        <class name="Notes.Web.Features.Notes.CreateNote.CreateNoteResponse" filename="Notes.Web/Features/Notes/CreateNote/CreateNote.cs" line-rate="1" branch-rate="1" complexity="1">
           <methods>
             <method name=".ctor" signature="(MongoDB.Bson.ObjectId,System.String,System.String,System.String,System.String,System.Single[],System.String,System.DateTime,System.DateTime,System.Boolean)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -1942,7 +1960,7 @@
             <line number="117" hits="5" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Features.Notes.BackfillTags.BackfillTagsHandler" filename="Notes.Web\Features\Notes\BackfillTags\BackfillTags.cs" line-rate="1" branch-rate="1" complexity="1">
+        <class name="Notes.Web.Features.Notes.BackfillTags.BackfillTagsHandler" filename="Notes.Web/Features/Notes/BackfillTags/BackfillTags.cs" line-rate="1" branch-rate="1" complexity="1">
           <methods>
             <method name=".ctor" signature="(Shared.Interfaces.INoteRepository,Notes.Web.Services.Ai.IAiService)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -1962,7 +1980,7 @@
             <line number="50" hits="18" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Data.MongoDbContext" filename="Notes.Web\Data\MongoDbContext.cs" line-rate="1" branch-rate="1" complexity="3">
+        <class name="Notes.Web.Data.MongoDbContext" filename="Notes.Web/Data/MongoDbContext.cs" line-rate="1" branch-rate="1" complexity="3">
           <methods>
             <method name="get_Notes" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -1992,7 +2010,7 @@
             <line number="31" hits="29" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Data.MongoDbContextFactory" filename="Notes.Web\Data\MongoDbContextFactory.cs" line-rate="1" branch-rate="1" complexity="15">
+        <class name="Notes.Web.Data.MongoDbContextFactory" filename="Notes.Web/Data/MongoDbContextFactory.cs" line-rate="1" branch-rate="1" complexity="15">
           <methods>
             <method name="CreateDbContext" signature="()" line-rate="1" branch-rate="1" complexity="14">
               <lines>
@@ -2088,7 +2106,7 @@
             <line number="60" hits="2" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Data.MongoDbServiceExtensions" filename="Notes.Web\Data\MongoDbServiceExtensions.cs" line-rate="1" branch-rate="1" complexity="9">
+        <class name="Notes.Web.Data.MongoDbServiceExtensions" filename="Notes.Web/Data/MongoDbServiceExtensions.cs" line-rate="1" branch-rate="1" complexity="9">
           <methods>
             <method name="AddMongoDb" signature="(Microsoft.AspNetCore.Builder.WebApplicationBuilder)" line-rate="1" branch-rate="1" complexity="8">
               <lines>
@@ -2138,7 +2156,8 @@
               <lines>
                 <line number="79" hits="28" branch="False" />
                 <line number="82" hits="28" branch="False" />
-                <line number="84" hits="28" branch="False" />
+                <line number="85" hits="28" branch="False" />
+                <line number="87" hits="28" branch="False" />
               </lines>
             </method>
           </methods>
@@ -2185,38 +2204,39 @@
             <line number="72" hits="28" branch="False" />
             <line number="79" hits="28" branch="False" />
             <line number="82" hits="28" branch="False" />
-            <line number="84" hits="28" branch="False" />
+            <line number="85" hits="28" branch="False" />
+            <line number="87" hits="28" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Data.MongoDbServiceExtensions/RuntimeMongoDbContextFactory" filename="Notes.Web\Data\MongoDbServiceExtensions.cs" line-rate="1" branch-rate="1" complexity="2">
+        <class name="Notes.Web.Data.MongoDbServiceExtensions/RuntimeMongoDbContextFactory" filename="Notes.Web/Data/MongoDbServiceExtensions.cs" line-rate="1" branch-rate="1" complexity="2">
           <methods>
             <method name="CreateDbContext" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="109" hits="4" branch="False" />
-                <line number="111" hits="4" branch="False" />
                 <line number="112" hits="4" branch="False" />
+                <line number="114" hits="4" branch="False" />
+                <line number="115" hits="4" branch="False" />
               </lines>
             </method>
             <method name=".ctor" signature="(Shared.Interfaces.IMongoDbContext)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="99" hits="9" branch="False" />
-                <line number="100" hits="9" branch="False" />
-                <line number="101" hits="9" branch="False" />
                 <line number="102" hits="9" branch="False" />
+                <line number="103" hits="9" branch="False" />
+                <line number="104" hits="9" branch="False" />
+                <line number="105" hits="9" branch="False" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="109" hits="4" branch="False" />
-            <line number="111" hits="4" branch="False" />
             <line number="112" hits="4" branch="False" />
-            <line number="99" hits="9" branch="False" />
-            <line number="100" hits="9" branch="False" />
-            <line number="101" hits="9" branch="False" />
+            <line number="114" hits="4" branch="False" />
+            <line number="115" hits="4" branch="False" />
             <line number="102" hits="9" branch="False" />
+            <line number="103" hits="9" branch="False" />
+            <line number="104" hits="9" branch="False" />
+            <line number="105" hits="9" branch="False" />
           </lines>
         </class>
-        <class name="Notes.Web.Data.Repositories.NoteRepository" filename="Notes.Web\Data\Repositories\NoteRepository.cs" line-rate="1" branch-rate="1" complexity="1">
+        <class name="Notes.Web.Data.Repositories.NoteRepository" filename="Notes.Web/Data/Repositories/NoteRepository.cs" line-rate="1" branch-rate="1" complexity="1">
           <methods>
             <method name=".ctor" signature="(Shared.Interfaces.IMongoDbContextFactory)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -2232,7 +2252,7 @@
     </package>
     <package name="Shared" line-rate="1" branch-rate="1" complexity="13">
       <classes>
-        <class name="Shared.Abstractions.Result" filename="Shared\Abstractions\Result.cs" line-rate="1" branch-rate="1" complexity="8">
+        <class name="Shared.Abstractions.Result" filename="Shared/Abstractions/Result.cs" line-rate="1" branch-rate="1" complexity="8">
           <methods>
             <method name="get_Failure" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -2316,7 +2336,7 @@
             <line number="21" hits="172" branch="False" />
           </lines>
         </class>
-        <class name="Shared.Abstractions.Result`1" filename="Shared\Abstractions\Result.cs" line-rate="1" branch-rate="1" complexity="5">
+        <class name="Shared.Abstractions.Result`1" filename="Shared/Abstractions/Result.cs" line-rate="1" branch-rate="1" complexity="5">
           <methods>
             <method name="Ok" signature="(T)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
