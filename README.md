@@ -8,23 +8,19 @@ A tool to create and manage notes using MongoDB to store documents. It includes 
 
 [![Build and Test](https://github.com/mpaulosky/NotesApp/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/mpaulosky/NotesApp/actions/workflows/build-and-test.yml)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mpaulosky/NotesApp?logo=github)
+[![codecov](https://codecov.io/gh/mpaulosky/NotesApp/branch/main/graph/badge.svg)](https://codecov.io/gh/mpaulosky/NotesApp)
 ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/mpaulosky/NotesApp/main?label=last%20commit%20main&logo=github)
 
 ****
 
-[![codecov](https://codecov.io/gh/mpaulosky/NotesApp/branch/main/graph/badge.svg)](https://codecov.io/gh/mpaulosky/NotesApp)
 [![Issues Open](https://img.shields.io/github/issues/mpaulosky/NotesApp?logo=github)](https://github.com/mpaulosky/NotesApp/issues)
 [![Issues Closed](https://img.shields.io/github/issues-closed/mpaulosky/NotesApp?logo=github)](https://github.com/mpaulosky/NotesApp/issues?q=is%3Aissue+is%3Aclosed)
 [![Pull Requests Open](https://img.shields.io/github/issues-pr/mpaulosky/NotesApp?logo=github)](https://github.com/mpaulosky/NotesApp/pulls)
 [![Pull Requests Closed](https://img.shields.io/github/issues-pr-closed/mpaulosky/NotesApp?logo=github)](https://github.com/mpaulosky/NotesApp/pulls?q=is%3Apr+is%3Aclosed)
-[![License](https://img.shields.io/github/license/mpaulosky/NotesApp?logo=github)](https://github.com/mpaulosky/NotesApp/blob/main/LICENSE.txt)
 
 ****
 
-[![Issues Open](https://img.shields.io/github/issues/mpaulosky/NotesApp?logo=github)](https://github.com/mpaulosky/NotesApp/issues)
-[![Issues Closed](https://img.shields.io/github/issues-closed/mpaulosky/NotesApp?logo=github)](https://github.com/mpaulosky/NotesApp/issues?q=is%3Aissue+is%3Aclosed)
-[![Pull Requests Open](https://img.shields.io/github/issues-pr/mpaulosky/NotesApp?logo=github)](https://github.com/mpaulosky/NotesApp/pulls)
-[![Pull Requests Closed](https://img.shields.io/github/issues-pr-closed/mpaulosky/NotesApp?logo=github)](https://github.com/mpaulosky/NotesApp/pulls?q=is%3Apr+is%3Aclosed)
+[![License](https://img.shields.io/github/license/mpaulosky/NotesApp?logo=github)](https://github.com/mpaulosky/NotesApp/blob/main/LICENSE.txt)
 
 ****
 
