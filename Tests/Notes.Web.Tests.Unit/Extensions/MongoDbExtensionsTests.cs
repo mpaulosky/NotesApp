@@ -21,7 +21,6 @@ public class MongoDbExtensionsTests
  public void AddMongoDb_RegistersMongoDbContext()
  {
   // Arrange
-  var services = new ServiceCollection();
   var builder = new HostApplicationBuilder();
 
   // Act
