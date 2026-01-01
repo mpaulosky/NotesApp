@@ -127,6 +127,8 @@ public class SecurityArchitectureTests : BaseArchitectureTest
 
 	/// <summary>
 	/// Verifies that features handling user data validate user authorization through UserSubject.
+	/// Note: This test uses naming conventions to identify data-modifying commands.
+	/// For more robust validation, consider implementing IAuthorizableCommand interface.
 	/// </summary>
 	[Fact]
 	public void FeatureCommandsShouldIncludeUserSubjectForAuthorization()
@@ -141,6 +143,7 @@ public class SecurityArchitectureTests : BaseArchitectureTest
 			.GetTypes();
 
 		// Commands that modify data should have UserSubject for authorization
+		// This uses naming conventions - consider IAuthorizableCommand interface for production systems
 		var commandsRequiringAuth = commands.Where(c =>
 			c.Name.Contains("Create") ||
 			c.Name.Contains("Update") ||
