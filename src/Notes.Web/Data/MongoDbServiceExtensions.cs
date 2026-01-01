@@ -6,13 +6,6 @@
 // Solution Name : NotesSite
 // Project Name :  Web
 // =======================================================
-
-using Shared.Interfaces;
-
-using MongoDB.Driver;
-
-using Notes.Web.Data.Repositories;
-
 namespace Notes.Web.Data;
 
 /// <summary>
@@ -32,19 +25,18 @@ public static class MongoDbServiceExtensions
 	public static void AddMongoDb(this WebApplicationBuilder builder)
 	{
 		IServiceCollection services = builder.Services;
-		var configuration = builder.Configuration;
 
-		// Get MongoDB connection string from an environment variable or configuration
-		string connectionString = configuration["ConnectionStrings:articlesdb"] ??
-															Environment.GetEnvironmentVariable("MONGODB_CONNECTION_STRING") ??
-															throw new InvalidOperationException("MongoDB connection string not found.");
+		// Get database name from configuration, defaulting to the constant if not configured
+		// Use string.IsNullOrWhiteSpace to handle both null and empty string cases
+		var databaseName = string.IsNullOrWhiteSpace(builder.Configuration["MongoDb:DatabaseName"]) 
+			? DatabaseName 
+			: builder.Configuration["MongoDb:DatabaseName"];
 
-		string databaseName = configuration["MongoDb:DatabaseName"] ??
-													Environment.GetEnvironmentVariable("MONGODB_DATABASE_NAME") ?? "articlesdb";
+		// Use Aspire's MongoDB client integration which handles service discovery
+		// The connection string is provided by Aspire AppHost via service discovery
+		builder.AddMongoDBClient(DatabaseName);
 
-		// Register IMongoClient and IMongoDatabase manually
-		services.AddSingleton<IMongoClient>(_ => new MongoClient(connectionString));
-
+		// Register IMongoDatabase using the DatabaseName from configuration or the Aspire resource
 		services.AddScoped(sp =>
 		{
 			IMongoClient client = sp.GetRequiredService<IMongoClient>();
@@ -72,11 +64,14 @@ public static class MongoDbServiceExtensions
 	}
 
 	/// <summary>
-	///   Registers MongoDB repositories and CQRS handlers for articles and categories.
+	///   Registers MongoDB repositories, MediatR, and CQRS handlers for notes.
 	/// </summary>
 	/// <param name="services">The <see cref="IServiceCollection" /> to register services with.</param>
 	private static void RegisterRepositoriesAndHandlers(IServiceCollection services)
 	{
+
+		// Register MediatR and scan for all handlers in the current assembly
+		services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(MongoDbServiceExtensions).Assembly));
 
 		// Register repositories
 		services.AddScoped<INoteRepository, NoteRepository>();

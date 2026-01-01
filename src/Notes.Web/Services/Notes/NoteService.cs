@@ -12,18 +12,10 @@ namespace Notes.Web.Services.Notes;
 /// <summary>
 ///   Service for note operations that abstracts MediatR from Blazor components.
 /// </summary>
-public sealed class NoteService : INoteService
+/// <param name="mediator">The MediatR mediator for sending commands and queries.</param>
+public sealed class NoteService(IMediator mediator) : INoteService
 {
-	private readonly IMediator _mediator;
-
-	/// <summary>
-	///   Initializes a new instance of the <see cref="NoteService"/> class.
-	/// </summary>
-	/// <param name="mediator">The MediatR mediator.</param>
-	public NoteService(IMediator mediator)
-	{
-		_mediator = mediator;
-	}
+	private readonly IMediator _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
 
 	/// <inheritdoc />
 	public async Task<CreateNoteResponse?> CreateNoteAsync(string title, string content, string userSubject, CancellationToken cancellationToken = default)
@@ -47,7 +39,11 @@ public sealed class NoteService : INoteService
 			UserSubject = userSubject
 		};
 
-		return await _mediator.Send(query, cancellationToken);
+		return await _mediator.Send(query, cancellationToken) ?? new GetNoteDetailsResponse
+		{
+			Success = false,
+			Message = "Failed to retrieve note details."
+		};
 	}
 
 	/// <inheritdoc />

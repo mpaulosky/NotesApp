@@ -39,22 +39,19 @@ public record CreateNoteCommand : IRequest<CreateNoteResponse>
 /// <summary>
 ///   Handler for creating a new note with AI-generated summary, tags, and embeddings.
 /// </summary>
-public class CreateNoteHandler : IRequestHandler<CreateNoteCommand, CreateNoteResponse>
+/// <param name="repository">The repository for note data access.</param>
+/// <param name="aiService">The AI service for generating summaries, tags, and embeddings.</param>
+public class CreateNoteHandler(INoteRepository repository, IAiService aiService) : IRequestHandler<CreateNoteCommand, CreateNoteResponse>
 {
-
-	private readonly IAiService _aiService;
-
-	private readonly INoteRepository _repository;
-
-	public CreateNoteHandler(INoteRepository repository, IAiService aiService)
-	{
-		_repository = repository;
-		_aiService = aiService;
-	}
+	private readonly IAiService _aiService = aiService ?? throw new ArgumentNullException(nameof(aiService));
+	private readonly INoteRepository _repository = repository ?? throw new ArgumentNullException(nameof(repository));
 
 	/// <summary>
 	///   Handles the command to create a note.
 	/// </summary>
+	/// <param name="request">The command containing note creation data.</param>
+	/// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+	/// <returns>A response containing the created note details.</returns>
 	public async Task<CreateNoteResponse> Handle(CreateNoteCommand request, CancellationToken cancellationToken)
 	{
 		// Generate AI summary, tags, and embedding in parallel
@@ -77,7 +74,7 @@ public class CreateNoteHandler : IRequestHandler<CreateNoteCommand, CreateNoteRe
 			Embedding = embedding,
 			OwnerSubject = request.UserSubject,
 			CreatedAt = DateTime.UtcNow,
-			UpdatedAt = DateTime.UtcNow, 
+			UpdatedAt = DateTime.UtcNow,
 			IsArchived = false
 		};
 

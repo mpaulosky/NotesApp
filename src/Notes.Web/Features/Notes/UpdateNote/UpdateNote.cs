@@ -9,9 +9,9 @@
 
 using MediatR;
 
-using Shared.Interfaces;
-
 using Notes.Web.Services.Ai;
+
+using Shared.Interfaces;
 
 // using Microsoft.EntityFrameworkCore; (duplicate removed)
 
@@ -53,22 +53,19 @@ public record UpdateNoteCommand : IRequest<UpdateNoteResponse>
 /// <summary>
 ///   Handler for updating a note with AI regeneration.
 /// </summary>
-public class UpdateNoteHandler : IRequestHandler<UpdateNoteCommand, UpdateNoteResponse>
+/// <param name="repository">The note repository for data access.</param>
+/// <param name="aiService">The AI service for regenerating summaries, tags, and embeddings.</param>
+public class UpdateNoteHandler(INoteRepository repository, IAiService aiService) : IRequestHandler<UpdateNoteCommand, UpdateNoteResponse>
 {
-
-	private readonly IAiService _aiService;
-
-	private readonly INoteRepository _repository;
-
-	public UpdateNoteHandler(INoteRepository repository, IAiService aiService)
-	{
-		_repository = repository;
-		_aiService = aiService;
-	}
+	private readonly IAiService _aiService = aiService ?? throw new ArgumentNullException(nameof(aiService));
+	private readonly INoteRepository _repository = repository ?? throw new ArgumentNullException(nameof(repository));
 
 	/// <summary>
 	///   Handles the command to update a note.
 	/// </summary>
+	/// <param name="request">The command containing updated note data.</param>
+	/// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+	/// <returns>A response indicating success or failure with updated note details.</returns>
 	public async Task<UpdateNoteResponse> Handle(UpdateNoteCommand request, CancellationToken cancellationToken)
 	{
 		var noteResult = await _repository.GetNoteByIdAsync(request.Id);

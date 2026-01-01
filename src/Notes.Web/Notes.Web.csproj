@@ -14,15 +14,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Aspire.MongoDB.Driver" />
+		<PackageReference Include="Aspire.StackExchange.Redis.OutputCaching" />
 		<PackageReference Include="Blazored.LocalStorage" />
 		<PackageReference Include="MongoDB.Bson" />
 		<PackageReference Include="MongoDB.Driver" />
 		<PackageReference Include="AspNetCore.HealthChecks.MongoDb" />
 		<PackageReference Include="Auth0.AspNetCore.Authentication" />
 		<PackageReference Include="MediatR" />
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" />
 		<PackageReference Include="MongoDB.EntityFrameworkCore" />
 		<PackageReference Include="OpenAI" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" />
 		<PackageReference Include="System.ClientModel" />
 	</ItemGroup>
 
