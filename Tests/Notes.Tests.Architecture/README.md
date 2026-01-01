@@ -2,7 +2,7 @@
 
 This project contains comprehensive architecture tests using **NetArchTest.Rules** and **FluentAssertions** to enforce architectural patterns and coding standards across the NotesApp solution.
 
-## Test Coverage (42 Tests - 100% Passing)
+## Test Coverage (72 Tests - 100% Passing)
 
 ### Naming Convention Tests (7 tests)
 - ? Interfaces should start with 'I'
@@ -43,7 +43,7 @@ This project contains comprehensive architecture tests using **NetArchTest.Rules
 - ? Layout components should be in Layout namespace
 - ? Components should be in Notes.Web.Components namespace
 
-### General Architecture Tests (13 tests)
+### General Architecture Tests (11 tests)
 - ? Classes should not have public fields
 - ? Async methods should have 'Async' suffix (with framework exceptions)
 - ? Option classes should be in correct namespace
@@ -55,6 +55,44 @@ This project contains comprehensive architecture tests using **NetArchTest.Rules
 - ? Production code should not reference NUnit
 - ? Production code should not reference MSTest
 - ? Methods should have correct accessibility
+
+### Component Architecture Tests (7 tests)
+- ? Page components should be in Pages or User folders
+- ? Shared components should be properly organized
+- ? Components should avoid business logic in public methods
+- ? Component parameters should be public settable properties
+- ? Components should have clear naming conventions
+- ? Pages should inject ILogger for diagnostics
+- ? Components should not depend on concrete repositories
+
+### Service Pattern Tests (8 tests)
+- ? Wrappers should implement interfaces
+- ? Wrapper interfaces should start with 'I'
+- ? Service extensions should be in Services namespace
+- ? Extension methods should extend correct types
+- ? Services should be in Services namespace
+- ? Option classes should be used by corresponding service
+- ? Services should not have static methods
+- ? AI services should be in Ai sub-namespace
+
+### Data Layer Tests (7 tests)
+- ? Repositories should be in Repositories namespace
+- ? Repository interfaces should be in Shared project
+- ? Features should use repositories, not MongoDbContext directly
+- ? Data classes should be in Data namespace
+- ? Repositories should return domain entities, not DB types
+- ? MongoDB entities should have BSON attributes
+- ? Data layer should not depend on Components
+
+### Security Architecture Tests (8 tests)
+- ? Authenticated pages should have [Authorize] attribute
+- ? Admin pages should have role-based authorization
+- ? Authentication services should be in Services namespace
+- ? Authentication state providers should inherit from base class
+- ? User components should have [Authorize] attribute
+- ? Feature commands should include UserSubject for authorization
+- ? Authentication extensions should be static classes
+- ? Public pages should not require authorization
 
 ## Technology Stack
 
@@ -192,5 +230,5 @@ Some tests include exceptions for framework requirements:
 ---
 
 **Maintained by**: NotesApp Team  
-**Last Updated**: December 2025  
-**Status**: ? All 42 Tests Passing
+**Last Updated**: January 2026  
+**Status**: ? All 72 Tests Passing
