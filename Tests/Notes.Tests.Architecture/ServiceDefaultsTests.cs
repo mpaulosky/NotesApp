@@ -20,15 +20,23 @@ public class ServiceDefaultsTests : BaseArchitectureTest
 	[Fact]
 	public void ExtensionMethodsShouldBePublicAndStatic()
 	{
-		var result = Types.InAssembly(ServiceDefaultsAssembly)
+		var extensionClasses = Types.InAssembly(ServiceDefaultsAssembly)
 			.That()
 			.HaveNameEndingWith("Extensions")
-			.Should()
-			.BeStatic()
-			.GetResult();
+			.GetTypes();
 
-		result.IsSuccessful.Should().BeTrue(
-			$"Extension classes should be public and static. Failures: {string.Join(", ", result.FailingTypeNames ?? [])}");
+		var invalidExtensions = new List<string>();
+
+		foreach (var extensionClass in extensionClasses)
+		{
+			if (!extensionClass.IsSealed || !extensionClass.IsAbstract) // static classes are sealed and abstract
+			{
+				invalidExtensions.Add($"{extensionClass.Name} (not static)");
+			}
+		}
+
+		invalidExtensions.Should().BeEmpty(
+			$"Extension classes should be public and static. Invalid: {string.Join(", ", invalidExtensions)}");
 	}
 
 	[Fact]
@@ -84,17 +92,15 @@ public class ServiceDefaultsTests : BaseArchitectureTest
 	[Fact]
 	public void ServiceDefaultsShouldOnlyContainExtensionClasses()
 	{
-		// Get all non-compiler-generated classes
-		var types = ServiceDefaultsAssembly.GetTypes()
-			.Where(t => t.IsClass && 
-				!t.Name.Contains("<>") && 
-				!t.Name.Contains("+") &&
-				!t.IsNested &&
-				!t.GetCustomAttributes(false).Any(a => a.GetType().Name.Contains("CompilerGenerated")))
-			.ToList();
+		var types = Types.InAssembly(ServiceDefaultsAssembly)
+			.That()
+			.AreClasses()
+			.GetTypes();
 
 		var nonExtensionClasses = types
 			.Where(t => !t.Name.EndsWith("Extensions"))
+			.Where(t => !t.Name.StartsWith("<")) // Exclude compiler-generated classes
+			.Where(t => t.DeclaringType == null || !t.DeclaringType.Name.StartsWith("<")) // Exclude nested types of compiler-generated classes
 			.Select(t => t.FullName)
 			.ToList();
 
