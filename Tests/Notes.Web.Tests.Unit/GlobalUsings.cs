@@ -19,3 +19,4 @@ global using Notes.Web.Features.Notes.GetRelatedNotes;
 global using Notes.Web.Components.Shared;
 global using Notes.Web.Components.Layout;
 global using Notes.Web.Components.Pages;
+global using System.Diagnostics.CodeAnalysis;
