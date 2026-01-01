@@ -145,8 +145,8 @@ public class ServiceDefaultsTests : BaseArchitectureTest
 
 Add architecture tests for all extension methods in Notes.Web to validate they follow consistent patterns.
 
-- [ ] Create new test file at `Tests/Notes.Tests.Architecture/ExtensionMethodsTests.cs`
-- [ ] Copy and paste code below into `Tests/Notes.Tests.Architecture/ExtensionMethodsTests.cs`:
+- [x] Create new test file at `Tests/Notes.Tests.Architecture/ExtensionMethodsTests.cs`
+- [x] Copy and paste code below into `Tests/Notes.Tests.Architecture/ExtensionMethodsTests.cs`:
 
 ```csharp
 // =======================================================
@@ -273,9 +273,9 @@ public class ExtensionMethodsTests : BaseArchitectureTest
 
 #### Step 2 Verification Checklist
 
-- [ ] Run tests: `dotnet test Tests/Notes.Tests.Architecture/Notes.Tests.Architecture.csproj`
-- [ ] All ExtensionMethodsTests pass successfully
-- [ ] No build errors or warnings
+- [x] Run tests: `dotnet test Tests/Notes.Tests.Architecture/Notes.Tests.Architecture.csproj`
+- [x] All ExtensionMethodsTests pass successfully
+- [x] No build errors or warnings
 
 #### Step 2 STOP & COMMIT
 
