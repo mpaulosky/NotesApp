@@ -26,8 +26,8 @@ Implement comprehensive architecture tests for ServiceDefaults, Extensions, and 
 
 Add comprehensive architecture tests for the Notes.ServiceDefaults project to validate extension method patterns and dependencies.
 
-- [ ] Create new test file at `Tests/Notes.Tests.Architecture/ServiceDefaultsTests.cs`
-- [ ] Copy and paste code below into `Tests/Notes.Tests.Architecture/ServiceDefaultsTests.cs`:
+- [x] Create new test file at `Tests/Notes.Tests.Architecture/ServiceDefaultsTests.cs`
+- [x] Copy and paste code below into `Tests/Notes.Tests.Architecture/ServiceDefaultsTests.cs`:
 
 ```csharp
 // =======================================================
@@ -131,9 +131,9 @@ public class ServiceDefaultsTests : BaseArchitectureTest
 
 #### Step 1 Verification Checklist
 
-- [ ] Run tests: `dotnet test Tests/Notes.Tests.Architecture/Notes.Tests.Architecture.csproj`
-- [ ] All ServiceDefaultsTests pass successfully
-- [ ] No build errors or warnings
+- [x] Run tests: `dotnet test Tests/Notes.Tests.Architecture/Notes.Tests.Architecture.csproj`
+- [x] All ServiceDefaultsTests pass successfully
+- [x] No build errors or warnings
 
 #### Step 1 STOP & COMMIT
 
