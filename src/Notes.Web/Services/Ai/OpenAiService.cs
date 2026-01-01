@@ -7,50 +7,39 @@
 // Project Name :  UI
 // =======================================================
 
-using Shared.Interfaces;
-
 using Microsoft.Extensions.Options;
 
 using OpenAI.Chat;
+
+using Shared.Interfaces;
 
 namespace Notes.Web.Services.Ai;
 
 /// <summary>
 ///   Implementation of an AI service using OpenAI API.
 /// </summary>
-public class OpenAiService : IAiService
-{
-
-	private readonly IChatClientWrapper _chatClient;
-
-	private readonly INoteRepository _repository;
-
-	private readonly IEmbeddingClientWrapper _embeddingClient;
-
-	private readonly AiServiceOptions _options;
-
-	/// <summary>
-	///   Initializes a new instance of the <see cref="OpenAiService" /> class.
-	/// </summary>
-	/// <param name="options">AI service configuration options.</param>
-	/// <param name="repository">Repository for querying notes.</param>
-	/// <param name="chatClient">Chat client for AI completions.</param>
-	/// <param name="embeddingClient">Embedding client for vector generation.</param>
-	public OpenAiService(
+/// <param name="options">AI service configuration options.</param>
+/// <param name="repository">Repository for querying notes.</param>
+/// <param name="chatClient">Chat client for AI completions.</param>
+/// <param name="embeddingClient">Embedding client for vector generation.</param>
+public class OpenAiService(
 	IOptions<AiServiceOptions> options,
 	INoteRepository repository,
 	IChatClientWrapper chatClient,
-	IEmbeddingClientWrapper embeddingClient)
-	{
-		_options = options.Value;
-		_repository = repository;
-		_chatClient = chatClient ?? throw new ArgumentNullException(nameof(chatClient));
-		_embeddingClient = embeddingClient ?? throw new ArgumentNullException(nameof(embeddingClient));
-	}
+	IEmbeddingClientWrapper embeddingClient) : IAiService
+{
+
+	private readonly AiServiceOptions _options = (options ?? throw new ArgumentNullException(nameof(options))).Value;
+	private readonly INoteRepository _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+	private readonly IChatClientWrapper _chatClient = chatClient ?? throw new ArgumentNullException(nameof(chatClient));
+	private readonly IEmbeddingClientWrapper _embeddingClient = embeddingClient ?? throw new ArgumentNullException(nameof(embeddingClient));
 
 	/// <summary>
 	///   Generates a concise summary for the given note content.
 	/// </summary>
+	/// <param name="content">The note content to summarize.</param>
+	/// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+	/// <returns>A concise summary of the content, or empty string if content is invalid or an error occurs.</returns>
 	public async Task<string> GenerateSummaryAsync(string content, CancellationToken cancellationToken = default)
 	{
 		if (string.IsNullOrWhiteSpace(content))
@@ -89,6 +78,9 @@ public class OpenAiService : IAiService
 	/// <summary>
 	///   Generates embeddings for semantic search and similarity matching.
 	/// </summary>
+	/// <param name="text">The text to generate embeddings for.</param>
+	/// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+	/// <returns>A float array representing the embedding vector, or empty array if text is invalid or an error occurs.</returns>
 	public async Task<float[]> GenerateEmbeddingAsync(string text, CancellationToken cancellationToken = default)
 	{
 		if (string.IsNullOrWhiteSpace(text))
@@ -114,6 +106,10 @@ public class OpenAiService : IAiService
 	/// <summary>
 	///   Generates relevant tags for the given note title and content.
 	/// </summary>
+	/// <param name="title">The note title.</param>
+	/// <param name="content">The note content.</param>
+	/// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+	/// <returns>A comma-separated list of relevant tags, or empty string if inputs are invalid or an error occurs.</returns>
 	public async Task<string> GenerateTagsAsync(
 		string title,
 		string content,
@@ -161,6 +157,12 @@ public class OpenAiService : IAiService
 	/// <summary>
 	///   Finds related notes based on semantic similarity using embeddings.
 	/// </summary>
+	/// <param name="embedding">The embedding vector to compare against.</param>
+	/// <param name="userSubject">The user subject identifier to filter notes by ownership.</param>
+	/// <param name="currentNoteId">Optional ID of the current note to exclude from results.</param>
+	/// <param name="topN">Optional maximum number of related notes to return. Use negative value to apply configured default.</param>
+	/// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+	/// <returns>A list of note IDs ordered by similarity score, or empty list if no related notes found.</returns>
 	public async Task<List<ObjectId>> FindRelatedNotesAsync(
 		float[] embedding,
 		string userSubject,

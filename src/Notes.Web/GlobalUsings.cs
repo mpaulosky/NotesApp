@@ -9,10 +9,14 @@
 
 global using Auth0.AspNetCore.Authentication;
 
+global using Blazored.LocalStorage;
+
 global using MediatR;
 
 global using Microsoft.AspNetCore.Components.Authorization;
+global using Microsoft.AspNetCore.OutputCaching;
 global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Options;
 
 global using MongoDB.Bson;
 global using MongoDB.Driver;

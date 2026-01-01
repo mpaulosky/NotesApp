@@ -39,19 +39,10 @@ public record ListNotesQuery : IRequest<ListNotesResponse>
 /// <summary>
 ///   Handler for listing notes for a user with pagination.
 /// </summary>
-public class ListNotesHandler : IRequestHandler<ListNotesQuery, ListNotesResponse>
+/// <param name="repository">The note repository for data access.</param>
+public class ListNotesHandler(INoteRepository repository) : IRequestHandler<ListNotesQuery, ListNotesResponse>
 {
-
-	private readonly INoteRepository _repository;
-
-	/// <summary>
-	///   Initializes a new instance of the <see cref="ListNotesHandler" /> class.
-	/// </summary>
-	/// <param name="repository">The database context.</param>
-	public ListNotesHandler(INoteRepository repository)
-	{
-		_repository = repository;
-	}
+	private readonly INoteRepository _repository = repository ?? throw new ArgumentNullException(nameof(repository));
 
 	/// <summary>
 	///   Handles the query to list notes for a user.
@@ -71,16 +62,16 @@ public class ListNotesHandler : IRequestHandler<ListNotesQuery, ListNotesRespons
 
 		var notes = notesResult.Success && notesResult.Value != null
 			? notesResult.Value.Select(n => new NoteListItem
-				{
-					Id = n.Id,
-					Title = n.Title,
-					Content = n.Content,
-					AiSummary = n.AiSummary,
-					Tags = n.Tags,
-					IsArchived = n.IsArchived,
-					CreatedAt = n.CreatedAt,
-					UpdatedAt = n.UpdatedAt
-				}).ToList()
+			{
+				Id = n.Id,
+				Title = n.Title,
+				Content = n.Content,
+				AiSummary = n.AiSummary,
+				Tags = n.Tags,
+				IsArchived = n.IsArchived,
+				CreatedAt = n.CreatedAt,
+				UpdatedAt = n.UpdatedAt
+			}).ToList()
 			: new List<NoteListItem>();
 
 		return new ListNotesResponse
@@ -95,42 +86,89 @@ public class ListNotesHandler : IRequestHandler<ListNotesQuery, ListNotesRespons
 
 }
 
+/// <summary>
+///   Response containing a list of notes with pagination information.
+/// </summary>
 public record ListNotesResponse
 {
-
+	/// <summary>
+	///   Gets a value indicating whether the operation was successful.
+	/// </summary>
 	public bool Success { get; init; }
 
+	/// <summary>
+	///   Gets an optional message providing additional information.
+	/// </summary>
 	public string? Message { get; init; }
 
+	/// <summary>
+	///   Gets the list of notes for the current page.
+	/// </summary>
 	public List<NoteListItem> Notes { get; init; } = new();
 
+	/// <summary>
+	///   Gets the total count of notes across all pages.
+	/// </summary>
 	public int TotalCount { get; init; }
 
+	/// <summary>
+	///   Gets the current page number.
+	/// </summary>
 	public int PageNumber { get; init; }
 
+	/// <summary>
+	///   Gets the number of items per page.
+	/// </summary>
 	public int PageSize { get; init; }
 
+	/// <summary>
+	///   Gets the total number of pages.
+	/// </summary>
 	public int TotalPages => (int)Math.Ceiling((double)TotalCount / PageSize);
-
 }
 
+/// <summary>
+///   Represents a single note item in a list view.
+/// </summary>
 public record NoteListItem
 {
-
+	/// <summary>
+	///   Gets the unique identifier for the note.
+	/// </summary>
 	public ObjectId Id { get; init; }
 
+	/// <summary>
+	///   Gets the note title.
+	/// </summary>
 	public string Title { get; init; } = string.Empty;
 
+	/// <summary>
+	///   Gets the note content.
+	/// </summary>
 	public string Content { get; init; } = string.Empty;
 
+	/// <summary>
+	///   Gets the AI-generated summary of the note.
+	/// </summary>
 	public string? AiSummary { get; init; }
 
+	/// <summary>
+	///   Gets the comma-separated tags for the note.
+	/// </summary>
 	public string? Tags { get; init; }
 
+	/// <summary>
+	///   Gets a value indicating whether the note is archived.
+	/// </summary>
 	public bool IsArchived { get; init; }
 
+	/// <summary>
+	///   Gets the creation timestamp.
+	/// </summary>
 	public DateTime CreatedAt { get; init; }
 
+	/// <summary>
+	///   Gets the last update timestamp.
+	/// </summary>
 	public DateTime UpdatedAt { get; init; }
-
 }

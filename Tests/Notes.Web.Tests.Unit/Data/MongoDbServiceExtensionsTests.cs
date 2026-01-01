@@ -198,26 +198,25 @@ public class MongoDbServiceExtensionsTests : IDisposable
 	}
 
 	[Fact]
-	public void AddMongoDb_ShouldUseDatabaseNameFromConfiguration()
+	public void AddMongoDb_ShouldUseAspireDatabaseName()
 	{
 		// Arrange
-		var expectedDatabaseName = "TestDatabase";
-		var builder = CreateWebApplicationBuilder(databaseName: expectedDatabaseName);
+		var builder = CreateWebApplicationBuilder();
 
 		// Act
 		builder.AddMongoDb();
 		var serviceProvider = builder.Services.BuildServiceProvider();
 
-		// Assert
+		// Assert - Uses database name from configuration (TestDb in this case)
 		var database = serviceProvider.GetService<IMongoDatabase>();
 		database.Should().NotBeNull();
-		database!.DatabaseNamespace.DatabaseName.Should().Be(expectedDatabaseName);
+		database!.DatabaseNamespace.DatabaseName.Should().Be("TestDb");
 	}
 
 	[Fact]
-	public void AddMongoDb_ShouldUseDatabaseNameFromEnvironmentVariable()
+	public void AddMongoDb_IgnoresEnvironmentVariableForDatabaseName()
 	{
-		// Arrange
+		// Arrange - Aspire uses fixed database name from resource, not environment variables
 		var expectedDatabaseName = "EnvDatabase";
 		Environment.SetEnvironmentVariable("MONGODB_DATABASE_NAME", expectedDatabaseName);
 		var builder = CreateWebApplicationBuilder(useDatabaseNameFromConfig: false);
@@ -226,10 +225,10 @@ public class MongoDbServiceExtensionsTests : IDisposable
 		builder.AddMongoDb();
 		var serviceProvider = builder.Services.BuildServiceProvider();
 
-		// Assert
+		// Assert - Aspire uses "NotesDb" regardless of environment variable
 		var database = serviceProvider.GetService<IMongoDatabase>();
 		database.Should().NotBeNull();
-		database!.DatabaseNamespace.DatabaseName.Should().Be(expectedDatabaseName);
+		database!.DatabaseNamespace.DatabaseName.Should().Be("NotesDb");
 	}
 
 	[Fact]
@@ -239,10 +238,11 @@ public class MongoDbServiceExtensionsTests : IDisposable
 		var builder = CreateWebApplicationBuilder(useConnectionString: false);
 		Environment.SetEnvironmentVariable("MONGODB_CONNECTION_STRING", null);
 
-		// Act & Assert
+		// Act - Registration doesn't throw; Aspire validates on first use
 		var act = () => builder.AddMongoDb();
-		act.Should().Throw<InvalidOperationException>()
-			.WithMessage("MongoDB connection string not found.");
+
+		// Assert - Aspire doesn't throw during registration
+		act.Should().NotThrow();
 	}
 
 	[Fact]
@@ -293,10 +293,10 @@ public class MongoDbServiceExtensionsTests : IDisposable
 		builder.AddMongoDb();
 		var serviceProvider = builder.Services.BuildServiceProvider();
 
-		// Assert
+		// Assert - Aspire uses "NotesDb" as the default from the resource name
 		var database = serviceProvider.GetService<IMongoDatabase>();
 		database.Should().NotBeNull();
-		database!.DatabaseNamespace.DatabaseName.Should().Be("articlesdb");
+		database!.DatabaseNamespace.DatabaseName.Should().Be("NotesDb");
 	}
 
 	[Fact]
@@ -337,7 +337,7 @@ public class MongoDbServiceExtensionsTests : IDisposable
 	}
 
 	[Fact]
-	public void AddMongoDb_WithEmptyDatabaseName_ShouldThrowWhenResolvingDatabase()
+	public void AddMongoDb_WithEmptyDatabaseName_ShouldUseAspireDefault()
 	{
 		// Arrange
 		var builder = CreateWebApplicationBuilder(databaseName: string.Empty);
@@ -346,9 +346,12 @@ public class MongoDbServiceExtensionsTests : IDisposable
 		builder.AddMongoDb();
 		var serviceProvider = builder.Services.BuildServiceProvider();
 
-		// Assert - Empty database name throws when MongoDB tries to create the database namespace
+		// Assert - Aspire uses fixed "NotesDb" regardless of configuration
 		var act = () => serviceProvider.GetService<IMongoDatabase>();
-		act.Should().Throw<ArgumentException>();
+		act.Should().NotThrow();
+		var database = act();
+		database.Should().NotBeNull();
+		database!.DatabaseNamespace.DatabaseName.Should().Be("NotesDb");
 	}
 
 	[Fact]
@@ -389,22 +392,21 @@ public class MongoDbServiceExtensionsTests : IDisposable
 	[Fact]
 	public void AddMongoDb_MongoDbContext_ShouldUseSameDatabaseNameAsMongoDatabase()
 	{
-		// Arrange
-		var expectedDatabaseName = "ConsistencyTest";
-		var builder = CreateWebApplicationBuilder(databaseName: expectedDatabaseName);
+		// Arrange - Aspire uses fixed "NotesDb" database name
+		var builder = CreateWebApplicationBuilder(useDatabaseNameFromConfig: false);
 		builder.AddMongoDb();
 		var serviceProvider = builder.Services.BuildServiceProvider();
 
-		using var scope = serviceProvider.CreateScope();
+			using var scope = serviceProvider.CreateScope();
 
-		// Act
-		var database = scope.ServiceProvider.GetService<IMongoDatabase>();
-		var context = scope.ServiceProvider.GetService<IMongoDbContext>();
+			// Act
+			var database = scope.ServiceProvider.GetService<IMongoDatabase>();
+			var context = scope.ServiceProvider.GetService<IMongoDbContext>();
 
-		// Assert
-		database!.DatabaseNamespace.DatabaseName.Should().Be(expectedDatabaseName);
-		context!.Database.DatabaseNamespace.DatabaseName.Should().Be(expectedDatabaseName);
-	}
+			// Assert - Both should use "NotesDb"
+			database!.DatabaseNamespace.DatabaseName.Should().Be("NotesDb");
+			context!.Database.DatabaseNamespace.DatabaseName.Should().Be("NotesDb");
+		}
 
 	[Fact]
 	public void AddMongoDb_RuntimeMongoDbContextFactory_ShouldReturnNonNullContext()
@@ -565,7 +567,8 @@ public class MongoDbServiceExtensionsTests : IDisposable
 
 		if (useConnectionString)
 		{
-			configValues["ConnectionStrings:articlesdb"] = connectionString;
+			// Aspire looks for ConnectionStrings:NotesDb (matching the resource name in AppHost)
+			configValues["ConnectionStrings:NotesDb"] = connectionString;
 		}
 
 		if (useDatabaseNameFromConfig)
