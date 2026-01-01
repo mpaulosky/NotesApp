@@ -13,6 +13,10 @@
 ****
 
 [![codecov](https://codecov.io/gh/mpaulosky/NotesApp/branch/main/graph/badge.svg)](https://codecov.io/gh/mpaulosky/NotesApp)
+[![Issues Open](https://img.shields.io/github/issues/mpaulosky/NotesApp?logo=github)](https://github.com/mpaulosky/NotesApp/issues)
+[![Issues Closed](https://img.shields.io/github/issues-closed/mpaulosky/NotesApp?logo=github)](https://github.com/mpaulosky/NotesApp/issues?q=is%3Aissue+is%3Aclosed)
+[![Pull Requests Open](https://img.shields.io/github/issues-pr/mpaulosky/NotesApp?logo=github)](https://github.com/mpaulosky/NotesApp/pulls)
+[![Pull Requests Closed](https://img.shields.io/github/issues-pr-closed/mpaulosky/NotesApp?logo=github)](https://github.com/mpaulosky/NotesApp/pulls?q=is%3Apr+is%3Aclosed)
 [![License](https://img.shields.io/github/license/mpaulosky/NotesApp?logo=github)](https://github.com/mpaulosky/NotesApp/blob/main/LICENSE.txt)
 
 ****
