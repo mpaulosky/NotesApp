@@ -64,7 +64,7 @@ public class GetRelatedNotesHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(noteId)
-			.Returns(Result.Ok(currentNote));
+			.Returns<Result<Note?>>(Result.Ok<Note?>(currentNote));
 
 		_aiService.FindRelatedNotesAsync(
 				embedding,
@@ -75,7 +75,7 @@ public class GetRelatedNotesHandlerTests
 			.Returns(relatedNoteIds);
 
 		_repository.GetNotes(Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>())
-			.Returns(Result.Ok<IEnumerable<Note>>(new List<Note> { relatedNote1, relatedNote2 }));
+			.Returns<Result<IEnumerable<Note>?>>(Result.Ok<IEnumerable<Note>?>(new List<Note> { relatedNote1, relatedNote2 }));
 
 		// Act
 		var response = await _handler.Handle(query, CancellationToken.None);
@@ -101,7 +101,7 @@ public class GetRelatedNotesHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(query.NoteId)
-			.Returns(Result.Fail<Note>("Note not found"));
+			.Returns<Result<Note?>>(Result.Fail<Note?>("Note not found"));
 
 		// Act
 		var response = await _handler.Handle(query, CancellationToken.None);
@@ -128,8 +128,7 @@ public class GetRelatedNotesHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(query.NoteId)
-			.Returns(Result.Ok<Note>(null!));
-
+		.Returns<Result<Note?>>(Result.Ok<Note?>(null!));
 		// Act
 		var response = await _handler.Handle(query, CancellationToken.None);
 
@@ -154,7 +153,7 @@ public class GetRelatedNotesHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(noteId)
-			.Returns(Result.Ok(currentNote));
+			.Returns<Result<Note?>>(Result.Ok<Note?>(currentNote));
 
 		// Act
 		var response = await _handler.Handle(query, CancellationToken.None);
@@ -187,7 +186,7 @@ public class GetRelatedNotesHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(noteId)
-			.Returns(Result.Ok(currentNote));
+			.Returns<Result<Note?>>(Result.Ok<Note?>(currentNote));
 
 		// Act
 		var response = await _handler.Handle(query, CancellationToken.None);
@@ -223,7 +222,7 @@ public class GetRelatedNotesHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(noteId)
-			.Returns(Result.Ok(currentNote));
+			.Returns<Result<Note?>>(Result.Ok<Note?>(currentNote));
 
 		_aiService.FindRelatedNotesAsync(
 				embedding,
@@ -263,7 +262,7 @@ public class GetRelatedNotesHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(noteId)
-			.Returns(Result.Ok(currentNote));
+			.Returns<Result<Note?>>(Result.Ok<Note?>(currentNote));
 
 		_aiService.FindRelatedNotesAsync(
 				Arg.Any<float[]>(),
@@ -274,7 +273,7 @@ public class GetRelatedNotesHandlerTests
 			.Returns(relatedNoteIds);
 
 		_repository.GetNotes(Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>())
-			.Returns(Result.Fail<IEnumerable<Note>>("Database error"));
+			.Returns(Result.Fail<IEnumerable<Note>?>("Database error"));
 
 		// Act
 		var response = await _handler.Handle(query, CancellationToken.None);
@@ -305,7 +304,7 @@ public class GetRelatedNotesHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(noteId)
-			.Returns(Result.Ok(currentNote));
+			.Returns<Result<Note?>>(Result.Ok<Note?>(currentNote));
 
 		_aiService.FindRelatedNotesAsync(
 				Arg.Any<float[]>(),
@@ -316,7 +315,7 @@ public class GetRelatedNotesHandlerTests
 			.Returns(relatedNoteIds);
 
 		_repository.GetNotes(Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>())
-			.Returns(Result.Ok<IEnumerable<Note>>(null!));
+			.Returns<Result<IEnumerable<Note>?>>(Result.Ok<IEnumerable<Note>?>(null!));
 
 		// Act
 		var response = await _handler.Handle(query, CancellationToken.None);
@@ -352,7 +351,7 @@ public class GetRelatedNotesHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(noteId)
-			.Returns(Result.Ok(currentNote));
+			.Returns<Result<Note?>>(Result.Ok<Note?>(currentNote));
 
 		_aiService.FindRelatedNotesAsync(
 				Arg.Any<float[]>(),
@@ -364,7 +363,7 @@ public class GetRelatedNotesHandlerTests
 
 		// Repository returns in different order
 		_repository.GetNotes(Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>())
-			.Returns(Result.Ok<IEnumerable<Note>>(new List<Note> { note1, note2, note3 }));
+			.Returns<Result<IEnumerable<Note>?>>(Result.Ok<IEnumerable<Note>?>(new List<Note> { note1, note2, note3 }));
 
 		// Act
 		var response = await _handler.Handle(query, CancellationToken.None);
@@ -396,7 +395,7 @@ public class GetRelatedNotesHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(noteId)
-			.Returns(Result.Ok(currentNote));
+			.Returns<Result<Note?>>(Result.Ok<Note?>(currentNote));
 
 		_aiService.FindRelatedNotesAsync(
 				Arg.Any<float[]>(),
@@ -438,7 +437,7 @@ public class GetRelatedNotesHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(noteId)
-			.Returns(Result.Ok(currentNote));
+			.Returns<Result<Note?>>(Result.Ok<Note?>(currentNote));
 
 		_aiService.FindRelatedNotesAsync(
 				Arg.Any<float[]>(),
@@ -481,7 +480,7 @@ public class GetRelatedNotesHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(noteId)
-			.Returns(Result.Ok(currentNote));
+			.Returns<Result<Note?>>(Result.Ok<Note?>(currentNote));
 
 		_aiService.FindRelatedNotesAsync(
 				Arg.Any<float[]>(),
@@ -528,7 +527,7 @@ public class GetRelatedNotesHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(noteId)
-			.Returns(Result.Ok(currentNote));
+			.Returns<Result<Note?>>(Result.Ok<Note?>(currentNote));
 
 		_aiService.FindRelatedNotesAsync(
 				Arg.Any<float[]>(),
@@ -540,7 +539,7 @@ public class GetRelatedNotesHandlerTests
 
 		// Repository only returns the existing note
 		_repository.GetNotes(Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>())
-			.Returns(Result.Ok<IEnumerable<Note>>(new List<Note> { existingNote }));
+			.Returns<Result<IEnumerable<Note>?>>(Result.Ok<IEnumerable<Note>?>(new List<Note> { existingNote }));
 
 		// Act
 		var response = await _handler.Handle(query, CancellationToken.None);
@@ -580,7 +579,7 @@ public class GetRelatedNotesHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(noteId)
-			.Returns(Result.Ok(currentNote));
+			.Returns<Result<Note?>>(Result.Ok<Note?>(currentNote));
 
 		_aiService.FindRelatedNotesAsync(
 				Arg.Any<float[]>(),
@@ -591,7 +590,7 @@ public class GetRelatedNotesHandlerTests
 			.Returns(relatedNoteIds);
 
 		_repository.GetNotes(Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>())
-			.Returns(Result.Ok<IEnumerable<Note>>(new List<Note> { relatedNote }));
+			.Returns<Result<IEnumerable<Note>?>>(Result.Ok<IEnumerable<Note>?>(new List<Note> { relatedNote }));
 
 		// Act
 		var response = await _handler.Handle(query, CancellationToken.None);
@@ -632,7 +631,7 @@ public class GetRelatedNotesHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(noteId)
-			.Returns(Result.Ok(currentNote));
+			.Returns<Result<Note?>>(Result.Ok<Note?>(currentNote));
 
 		_aiService.FindRelatedNotesAsync(
 				Arg.Any<float[]>(),
@@ -643,7 +642,7 @@ public class GetRelatedNotesHandlerTests
 			.Returns(relatedNoteIds);
 
 		_repository.GetNotes(Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>())
-			.Returns(Result.Ok<IEnumerable<Note>>(new List<Note> { relatedNote }));
+			.Returns<Result<IEnumerable<Note>?>>(Result.Ok<IEnumerable<Note>?>(new List<Note> { relatedNote }));
 
 		// Act
 		var response = await _handler.Handle(query, CancellationToken.None);
@@ -672,7 +671,7 @@ public class GetRelatedNotesHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(noteId)
-			.Returns(Result.Ok(currentNote));
+			.Returns<Result<Note?>>(Result.Ok<Note?>(currentNote));
 
 		_aiService.FindRelatedNotesAsync(
 				Arg.Any<float[]>(),
@@ -712,7 +711,7 @@ public class GetRelatedNotesHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(noteId)
-			.Returns(Result.Ok(currentNote));
+			.Returns<Result<Note?>>(Result.Ok<Note?>(currentNote));
 
 		_aiService.FindRelatedNotesAsync(
 				Array.Empty<float>(),
@@ -756,7 +755,7 @@ public class GetRelatedNotesHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(noteId)
-			.Returns(Result.Ok(currentNote));
+			.Returns<Result<Note?>>(Result.Ok<Note?>(currentNote));
 
 		_aiService.FindRelatedNotesAsync(
 				Arg.Any<float[]>(),
@@ -798,7 +797,7 @@ public class GetRelatedNotesHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(noteId)
-			.Returns(Result.Ok(currentNote));
+			.Returns<Result<Note?>>(Result.Ok<Note?>(currentNote));
 
 		_aiService.FindRelatedNotesAsync(
 				Arg.Any<float[]>(),

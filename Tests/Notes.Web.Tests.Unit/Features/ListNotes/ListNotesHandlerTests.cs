@@ -41,7 +41,7 @@ public class ListNotesHandlerTests
 			Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>(),
 			Arg.Any<int>(),
 			Arg.Any<int>())
-			.Returns(Task.FromResult(Result.Ok<IEnumerable<Note>>(notes)));
+			.Returns(Task.FromResult(Result.Ok<IEnumerable<Note>?>(notes)));
 
 		// Act
 		var response = await _handler.Handle(query, CancellationToken.None);
@@ -72,7 +72,7 @@ public class ListNotesHandlerTests
 			Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>(),
 			Arg.Any<int>(),
 			Arg.Any<int>())
-			.Returns(Task.FromResult(Result.Ok<IEnumerable<Note>>(new List<Note>())));
+			.Returns(Task.FromResult(Result.Ok<IEnumerable<Note>?>(new List<Note>())));
 
 		// Act
 		var response = await _handler.Handle(query, CancellationToken.None);
@@ -100,7 +100,7 @@ public class ListNotesHandlerTests
 			Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>(),
 			Arg.Any<int>(),
 			Arg.Any<int>())
-			.Returns(Task.FromResult(Result.Ok<IEnumerable<Note>>(new List<Note>())));
+			.Returns(Task.FromResult(Result.Ok<IEnumerable<Note>?>(new List<Note>())));
 
 		// Act
 		await _handler.Handle(query, CancellationToken.None);
@@ -131,7 +131,7 @@ public class ListNotesHandlerTests
 			Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>(),
 			Arg.Any<int>(),
 			Arg.Any<int>())
-			.Returns(Task.FromResult(Result.Ok<IEnumerable<Note>>(new List<Note>())));
+			.Returns(Task.FromResult(Result.Ok<IEnumerable<Note>?>(new List<Note>())));
 
 		// Act
 		var response = await _handler.Handle(query, CancellationToken.None);
@@ -165,7 +165,7 @@ public class ListNotesHandlerTests
 			Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>(),
 			Arg.Any<int>(),
 			Arg.Any<int>())
-			.Returns(Task.FromResult(Result.Ok<IEnumerable<Note>>(new List<Note> { note })));
+			.Returns(Task.FromResult(Result.Ok<IEnumerable<Note>?>(new List<Note> { note })));
 
 		// Act
 		var response = await _handler.Handle(query, CancellationToken.None);

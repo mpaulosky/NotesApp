@@ -35,7 +35,7 @@ public class GetNoteDetailsHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(query.Id)
-			.Returns(Task.FromResult(Result.Ok(note)));
+			.Returns(Task.FromResult<Result<Note?>>(Result.Ok<Note?>(note)));
 
 		// Act
 		var response = await _handler.Handle(query, CancellationToken.None);
@@ -65,7 +65,7 @@ public class GetNoteDetailsHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(query.Id)
-			.Returns(Task.FromResult(Result.Fail<Note>("Note not found")));
+			.Returns(Task.FromResult(Result.Fail<Note?>("Note not found")));
 
 		// Act
 		var response = await _handler.Handle(query, CancellationToken.None);
@@ -88,7 +88,7 @@ public class GetNoteDetailsHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(query.Id)
-			.Returns(Task.FromResult(Result.Ok(note)));
+			.Returns(Task.FromResult<Result<Note?>>(Result.Ok<Note?>(note)));
 
 		// Act
 		var response = await _handler.Handle(query, CancellationToken.None);
@@ -110,7 +110,7 @@ public class GetNoteDetailsHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(query.Id)
-			.Returns(Task.FromResult(Result.Ok<Note>(null!)));
+			.Returns(Task.FromResult<Result<Note?>>(Result.Ok<Note?>(null!)));
 
 		// Act
 		var response = await _handler.Handle(query, CancellationToken.None);
@@ -133,7 +133,7 @@ public class GetNoteDetailsHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(expectedId)
-			.Returns(Task.FromResult(Result.Fail<Note>("Not found")));
+			.Returns(Task.FromResult(Result.Fail<Note?>("Not found")));
 
 		// Act
 		await _handler.Handle(query, CancellationToken.None);

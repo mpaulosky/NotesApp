@@ -45,7 +45,7 @@ public class BackfillTagsHandlerTests
 		};
 
 		_repository.GetNotes(Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>())
-			.Returns(Result.Ok<IEnumerable<Note>>(notes));
+			.Returns(Result.Ok<IEnumerable<Note>?>(notes));
 
 		_aiService.GenerateTagsAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<CancellationToken>())
 			.Returns("tag1,tag2,tag3");
@@ -84,7 +84,7 @@ public class BackfillTagsHandlerTests
 		};
 
 		_repository.GetNotes(Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>())
-			.Returns(Result.Ok<IEnumerable<Note>>(notes));
+			.Returns(Result.Ok<IEnumerable<Note>?>(notes));
 
 		_aiService.GenerateTagsAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<CancellationToken>())
 			.Returns("tag1,tag2");
@@ -118,7 +118,7 @@ public class BackfillTagsHandlerTests
 		};
 
 		_repository.GetNotes(Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>())
-			.Returns(Result.Ok<IEnumerable<Note>>(notes));
+			.Returns(Result.Ok<IEnumerable<Note>?>(notes));
 
 		_aiService.GenerateTagsAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<CancellationToken>())
 			.Returns("new,tags");
@@ -144,7 +144,7 @@ public class BackfillTagsHandlerTests
 		};
 
 		_repository.GetNotes(Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>())
-			.Returns(Result.Fail<IEnumerable<Note>>("Database connection failed"));
+			.Returns(Result.Fail<IEnumerable<Note>?>("Database connection failed"));
 
 		// Act
 		var response = await _handler.Handle(command, CancellationToken.None);
@@ -167,7 +167,7 @@ public class BackfillTagsHandlerTests
 		};
 
 		_repository.GetNotes(Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>())
-			.Returns(Result.Ok<IEnumerable<Note>>(null!));
+			.Returns(Result.Ok<IEnumerable<Note>?>(null!));
 
 		// Act
 		var response = await _handler.Handle(command, CancellationToken.None);
@@ -188,7 +188,7 @@ public class BackfillTagsHandlerTests
 		};
 
 		_repository.GetNotes(Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>())
-			.Returns(Result.Ok<IEnumerable<Note>>(new List<Note>()));
+			.Returns(Result.Ok<IEnumerable<Note>?>(new List<Note>()));
 
 		// Act
 		var response = await _handler.Handle(command, CancellationToken.None);
@@ -212,7 +212,7 @@ public class BackfillTagsHandlerTests
 		};
 
 		_repository.GetNotes(Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>())
-			.Returns(Result.Ok<IEnumerable<Note>>(new List<Note> { note }));
+			.Returns(Result.Ok<IEnumerable<Note>?>(new List<Note> { note }));
 
 		_aiService.GenerateTagsAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<CancellationToken>())
 			.Returns(Task.FromException<string>(new Exception("AI service timeout")));
@@ -240,7 +240,7 @@ public class BackfillTagsHandlerTests
 		};
 
 		_repository.GetNotes(Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>())
-			.Returns(Result.Ok<IEnumerable<Note>>(new List<Note> { note }));
+			.Returns(Result.Ok<IEnumerable<Note>?>(new List<Note> { note }));
 
 		_aiService.GenerateTagsAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<CancellationToken>())
 			.Returns("tag1,tag2");
@@ -275,7 +275,7 @@ public class BackfillTagsHandlerTests
 		};
 
 		_repository.GetNotes(Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>())
-			.Returns(Result.Ok<IEnumerable<Note>>(notes));
+			.Returns(Result.Ok<IEnumerable<Note>?>(notes));
 
 		_aiService.GenerateTagsAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<CancellationToken>())
 			.Returns("tag1,tag2");
@@ -314,7 +314,7 @@ public class BackfillTagsHandlerTests
 		};
 
 		_repository.GetNotes(Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>())
-			.Returns(Result.Ok<IEnumerable<Note>>(new List<Note> { note }));
+			.Returns(Result.Ok<IEnumerable<Note>?>(new List<Note> { note }));
 
 		_aiService.GenerateTagsAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<CancellationToken>())
 			.Returns("tag1,tag2");
@@ -344,7 +344,7 @@ public class BackfillTagsHandlerTests
 		};
 
 		_repository.GetNotes(Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>())
-			.Returns(Result.Ok<IEnumerable<Note>>(new List<Note> { note }));
+			.Returns(Result.Ok<IEnumerable<Note>?>(new List<Note> { note }));
 
 		_aiService.GenerateTagsAsync("Note 1", "Content 1", Arg.Any<CancellationToken>())
 			.Returns("generated,ai,tags");
@@ -377,7 +377,7 @@ public class BackfillTagsHandlerTests
 		};
 
 		_repository.GetNotes(Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>())
-			.Returns(Result.Ok<IEnumerable<Note>>(new List<Note> { note }));
+			.Returns(Result.Ok<IEnumerable<Note>?>(new List<Note> { note }));
 
 		_aiService.GenerateTagsAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<CancellationToken>())
 			.Returns("tags");
@@ -402,7 +402,7 @@ public class BackfillTagsHandlerTests
 		};
 
 		_repository.GetNotes(Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>())
-			.Returns(Result.Ok<IEnumerable<Note>>(new List<Note>()));
+			.Returns(Result.Ok<IEnumerable<Note>?>(new List<Note>()));
 
 		// Act
 		var response = await _handler.Handle(command, CancellationToken.None);
@@ -430,7 +430,7 @@ public class BackfillTagsHandlerTests
 		};
 
 		_repository.GetNotes(Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>())
-			.Returns(Result.Ok<IEnumerable<Note>>(notes));
+			.Returns(Result.Ok<IEnumerable<Note>?>(notes));
 
 		_aiService.GenerateTagsAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<CancellationToken>())
 			.Returns("tag1,tag2");
@@ -464,7 +464,7 @@ public class BackfillTagsHandlerTests
 		};
 
 		_repository.GetNotes(Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>())
-			.Returns(Result.Ok<IEnumerable<Note>>(notes));
+			.Returns(Result.Ok<IEnumerable<Note>?>(notes));
 
 		_aiService.GenerateTagsAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<CancellationToken>())
 			.Returns(Task.FromException<string>(new Exception("AI Error")));
@@ -492,7 +492,7 @@ public class BackfillTagsHandlerTests
 		};
 
 		_repository.GetNotes(Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>())
-			.Returns(Result.Ok<IEnumerable<Note>>(new List<Note> { note }));
+			.Returns(Result.Ok<IEnumerable<Note>?>(new List<Note> { note }));
 
 		_aiService.GenerateTagsAsync(Arg.Any<string>(), Arg.Any<string>(), cancellationToken)
 			.Returns("tags");
@@ -520,7 +520,7 @@ public class BackfillTagsHandlerTests
 		};
 
 		_repository.GetNotes(Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>())
-			.Returns(Result.Ok<IEnumerable<Note>>(new List<Note> { note }));
+			.Returns(Result.Ok<IEnumerable<Note>?>(new List<Note> { note }));
 
 		_aiService.GenerateTagsAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<CancellationToken>())
 			.Returns("new,tags");
@@ -548,7 +548,7 @@ public class BackfillTagsHandlerTests
 		};
 
 		_repository.GetNotes(Arg.Any<System.Linq.Expressions.Expression<Func<Note, bool>>>())
-			.Returns(Result.Ok<IEnumerable<Note>>(new List<Note> { note }));
+			.Returns(Result.Ok<IEnumerable<Note>?>(new List<Note> { note }));
 
 		_aiService.GenerateTagsAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<CancellationToken>())
 			.Returns("tags");

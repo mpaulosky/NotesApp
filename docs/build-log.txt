@@ -264,3 +264,172 @@ Verification:
 - Integration: ? Docker/TestContainers working correctly
 
 =======================================================
+=======================================================
+BUILD SESSION - January 1, 2026 (Evening)
+=======================================================
+Date: 2026-01-01 (Evening)
+Session Focus: Build repair and test fix for MongoDB dependencies
+
+BUILD PROCESS:
+
+Step 1: Locate Solution File
+---------------------------------------------------
+Location: E:\github\NotesApp\NotesApp.slnx
+Status: FOUND
+Framework: .NET 10.0
+
+Step 2: Restore Dependencies
+---------------------------------------------------
+Command: dotnet restore
+Status: SUCCESS
+Duration: 3.7s
+Output: Restore complete, Build succeeded in 4.0s
+
+Step 3: Build Solution
+---------------------------------------------------
+Command: dotnet build --no-restore
+Status: SUCCESS
+Duration: 18.4s
+Errors: 0
+Warnings: 0
+
+Build Output:
+  ✓ Shared net10.0 → src\Shared\bin\Debug\net10.0\Shared.dll (0.3s)
+  ✓ Notes.ServiceDefaults net10.0 → src\Notes.ServiceDefaults\bin\Debug\net10.0\Notes.ServiceDefaults.dll (0.4s)
+  ✓ Notes.Web net10.0 → src\Notes.Web\bin\Debug\net10.0\Notes.Web.dll (12.9s)
+  ✓ Notes.Tests.Architecture net10.0 → Tests\Notes.Tests.Architecture\bin\Debug\net10.0\Notes.Tests.Architecture.dll (0.7s)
+  ✓ Notes.Web.Tests.Integration net10.0 → Tests\Notes.Web.Tests.Integration\bin\Debug\net10.0\Notes.Web.Tests.Integration.dll (0.6s)
+  ✓ Notes.AppHost net10.0 → src\Notes.AppHost\bin\Debug\net10.0\Notes.AppHost.dll (4.0s)
+  ✓ Notes.Web.Tests.Unit net10.0 → Tests\Notes.Web.Tests.Unit\bin\Debug\net10.0\Notes.Web.Tests.Unit.dll (4.3s)
+
+Step 4: Initial Test Run
+---------------------------------------------------
+Command: dotnet test --no-build --verbosity normal
+Status: FAILED
+Duration: 49.8s
+Test Summary:
+  - Total: 571
+  - Failed: 2
+  - Succeeded: 569
+  - Skipped: 0
+
+Failed Tests Identified:
+1. Notes.Web.Tests.Unit.Extensions.MongoDbExtensionsTests.AddMongoDb_RegistersMongoDbContext
+   Error: System.InvalidOperationException - Unable to resolve service for type 'MongoDB.Driver.IMongoClient' 
+   while attempting to activate 'Notes.Web.Data.MongoDbContext'
+   Location: E:\github\NotesApp\Tests\Notes.Web.Tests.Unit\Extensions\MongoDbExtensionsTests.cs:31
+
+2. Notes.Web.Tests.Unit.Extensions.MongoDbExtensionsTests.AddMongoDb_RegistersNoteRepository
+   Error: System.InvalidOperationException - Unable to resolve service for type 'Shared.Interfaces.IMongoDbContextFactory' 
+   while attempting to activate 'Notes.Web.Data.Repositories.NoteRepository'
+   Location: E:\github\NotesApp\Tests\Notes.Web.Tests.Unit\Extensions\MongoDbExtensionsTests.cs:46
+
+Root Cause Analysis:
+---------------------------------------------------
+Investigation revealed that:
+1. MongoDbExtensions.AddMongoDb() is a simplified extension method that only registers:
+   - IMongoDbContext → MongoDbContext (Scoped)
+   - INoteRepository → NoteRepository (Scoped)
+
+2. MongoDbContext requires constructor dependencies:
+   - IMongoClient mongoClient
+   - string databaseName
+
+3. NoteRepository requires constructor dependency:
+   - IMongoDbContextFactory contextFactory
+
+4. The full registration with all dependencies is in MongoDbServiceExtensions.AddMongoDb() which registers:
+   - IMongoClient (via Aspire)
+   - IMongoDatabase
+   - IMongoDbContext
+   - IMongoDbContextFactory (via RuntimeMongoDbContextFactory)
+   - INoteRepository
+   - All MediatR handlers
+
+5. The tests were calling the simplified extension method without providing mocked dependencies
+
+Step 5: Resolution Applied
+---------------------------------------------------
+File: Tests/Notes.Web.Tests.Unit/Extensions/MongoDbExtensionsTests.cs
+Strategy: Mock required dependencies in the test setup
+
+Changes to AddMongoDb_RegistersMongoDbContext test:
+  - Added: using MongoDB.Driver;
+  - Added mock IMongoClient: var mockClient = Substitute.For<IMongoClient>();
+  - Added mock database name: builder.Services.AddSingleton<string>("TestDatabase");
+  - Registered mocks before calling AddMongoDb()
+
+Changes to AddMongoDb_RegistersNoteRepository test:
+  - Added mock IMongoClient
+  - Added mock IMongoDbContextFactory: var mockContextFactory = Substitute.For<IMongoDbContextFactory>();
+  - Registered all required dependencies before calling AddMongoDb()
+
+Step 6: Rebuild After Fix
+---------------------------------------------------
+Command: dotnet build --no-restore
+Status: SUCCESS
+Duration: 17.3s
+Errors: 0
+Warnings: 0
+
+Step 7: Final Test Run
+---------------------------------------------------
+Command: dotnet test --no-build --verbosity normal
+Status: SUCCESS
+Duration: 52.5s
+
+Test Results:
+- Total Tests: 571
+- Passed: 571
+- Failed: 0
+- Skipped: 0
+
+TestContainers Activity:
+- MongoDB containers successfully created for integration tests
+- 9 Docker containers used across all test projects
+- All containers properly cleaned up after test completion
+
+Test Projects:
+  ✓ Notes.Tests.Architecture (8.0s) - 138 tests
+  ✓ Notes.Web.Tests.Unit (15.3s) - 156 tests
+  ✓ Notes.Web.Tests.Integration (51.5s) - 277 tests
+
+=======================================================
+SESSION SUMMARY
+=======================================================
+
+Status: ✅ BUILD SUCCESSFUL
+Error Resolution: Complete
+Test Status: All 571 tests passing
+Build Warnings: 0
+
+Files Modified:
+1. Tests/Notes.Web.Tests.Unit/Extensions/MongoDbExtensionsTests.cs
+   - Added using MongoDB.Driver directive
+   - Modified AddMongoDb_RegistersMongoDbContext to mock IMongoClient and database name
+   - Modified AddMongoDb_RegistersNoteRepository to mock IMongoClient, IMongoDbContextFactory, and database name
+
+Key Issues Resolved:
+1. Missing IMongoClient dependency for MongoDbContext
+2. Missing IMongoDbContextFactory dependency for NoteRepository
+3. Tests now properly mock required dependencies for isolated unit testing
+
+Technical Details:
+- Extension Method: MongoDbExtensions.AddMongoDb() (simplified registration)
+- Full Registration: MongoDbServiceExtensions.AddMongoDb() (production registration with Aspire)
+- Test Strategy: Dependency mocking using NSubstitute
+- Service Lifetimes: All services registered as Scoped
+
+Verification:
+- Build: ✅ Success (0 errors, 0 warnings)
+- Tests: ✅ All passing (571/571)
+- Integration: ✅ Docker/TestContainers working correctly
+- Code Quality: ✅ Unit tests properly isolated with mocked dependencies
+
+Next Steps:
+- Solution is ready for development
+- All tests passing with proper dependency injection
+- MongoDB integration tested and verified
+- Build process clean and reproducible
+
+=======================================================

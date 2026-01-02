@@ -72,7 +72,7 @@ public class AboutTests : BunitContext
 
 		// Assert
 		var links = cut.FindAll("a");
-		bool hasGitHubLink = links.Any(a => a.GetAttribute("href") != null && a.GetAttribute("href").Contains("github.com"));
+		bool hasGitHubLink = links.Any(a => a.GetAttribute("href") != null && a.GetAttribute("href")!.Contains("github.com"));
 		hasGitHubLink.Should().BeTrue();
 		cut.Markup.Should().Contain("Source code:");
 	}

@@ -28,7 +28,7 @@ public class DeleteNoteHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(command.Id)
-			.Returns(Task.FromResult(Result.Ok(existingNote)));
+			.Returns(Task.FromResult<Result<Note?>>(Result.Ok<Note?>(existingNote)));
 
 		// Act
 		var response = await _handler.Handle(command, CancellationToken.None);
@@ -50,8 +50,7 @@ public class DeleteNoteHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(command.Id)
-			.Returns(Task.FromResult(Result.Fail<Note>("Note not found")));
-
+		.Returns(Task.FromResult<Result<Note?>>(Result.Fail<Note?>("Note not found")));
 		// Act
 		var response = await _handler.Handle(command, CancellationToken.None);
 
@@ -73,13 +72,14 @@ public class DeleteNoteHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(command.Id)
-			.Returns(Task.FromResult(Result.Ok(existingNote)));
+			.Returns(Task.FromResult<Result<Note?>>(Result.Ok<Note?>(existingNote)));
 
 		// Act
 		var response = await _handler.Handle(command, CancellationToken.None);
 
 		// Assert
 		response.Success.Should().BeFalse();
+		response.Message.Should().Be("Note not found or access denied.");
 		response.Message.Should().Be("Note not found or access denied.");
 		await _repository.DidNotReceive().ArchiveNote(Arg.Any<Note>());
 	}
@@ -96,7 +96,7 @@ public class DeleteNoteHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(command.Id)
-			.Returns(Task.FromResult(Result.Ok(existingNote)));
+			.Returns(Task.FromResult<Result<Note?>>(Result.Ok<Note?>(existingNote)));
 
 		// Act
 		await _handler.Handle(command, CancellationToken.None);
@@ -116,8 +116,7 @@ public class DeleteNoteHandlerTests
 		};
 
 		_repository.GetNoteByIdAsync(command.Id)
-			.Returns(Task.FromResult(Result.Ok<Note>(null!)));
-
+		.Returns(Task.FromResult<Result<Note?>>(Result.Ok<Note?>(null!)));
 		// Act
 		var response = await _handler.Handle(command, CancellationToken.None);
 
