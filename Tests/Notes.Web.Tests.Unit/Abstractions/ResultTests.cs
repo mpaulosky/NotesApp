@@ -131,7 +131,7 @@ public class ResultTests
 		// Act
 		Action act = () =>
 		{
-			string? value = result!;
+			System.Convert.ToString(result!);
 		};
 
 		// Assert
