@@ -40,7 +40,7 @@ public class UpdateNoteHandlerTests
 		var expectedEmbedding = new[] { 0.4f, 0.5f, 0.6f };
 
 		_repository.GetNoteByIdAsync(command.Id)
-			.Returns(Task.FromResult(Result.Ok(existingNote)));
+			.Returns(Task.FromResult(Result.Ok<Note?>(existingNote)));
 
 		_aiService.GenerateSummaryAsync(command.Content, Arg.Any<CancellationToken>())
 			.Returns(Task.FromResult(expectedSummary));
@@ -69,7 +69,7 @@ public class UpdateNoteHandlerTests
 		var command = TestDataBuilder.CreateUpdateNoteCommand();
 
 		_repository.GetNoteByIdAsync(command.Id)
-			.Returns(Task.FromResult(Result.Fail<Note>("Note not found")));
+			.Returns(Task.FromResult(Result.Fail<Note?>("Note not found")));
 
 		// Act
 		var response = await _handler.Handle(command, CancellationToken.None);
@@ -91,7 +91,7 @@ public class UpdateNoteHandlerTests
 		);
 
 		_repository.GetNoteByIdAsync(command.Id)
-			.Returns(Task.FromResult(Result.Ok(existingNote)));
+			.Returns(Task.FromResult(Result.Ok<Note?>(existingNote)));
 
 		// Act
 		var response = await _handler.Handle(command, CancellationToken.None);
@@ -113,7 +113,7 @@ public class UpdateNoteHandlerTests
 		);
 
 		_repository.GetNoteByIdAsync(command.Id)
-			.Returns(Task.FromResult(Result.Ok(existingNote)));
+			.Returns(Task.FromResult(Result.Ok<Note?>(existingNote)));
 
 		_aiService.GenerateSummaryAsync(Arg.Any<string>(), Arg.Any<CancellationToken>())
 			.Returns(Task.FromResult("Summary"));
@@ -144,7 +144,7 @@ public class UpdateNoteHandlerTests
 		);
 
 		_repository.GetNoteByIdAsync(command.Id)
-			.Returns(Task.FromResult(Result.Ok(existingNote)));
+			.Returns(Task.FromResult(Result.Ok<Note?>(existingNote)));
 
 		_aiService.GenerateSummaryAsync(Arg.Any<string>(), Arg.Any<CancellationToken>())
 			.Returns(Task.FromResult("Summary"));
@@ -179,7 +179,7 @@ public class UpdateNoteHandlerTests
 		);
 
 		_repository.GetNoteByIdAsync(command.Id)
-			.Returns(Task.FromResult(Result.Ok(existingNote)));
+			.Returns(Task.FromResult(Result.Ok<Note?>(existingNote)));
 
 		_aiService.GenerateSummaryAsync(Arg.Any<string>(), Arg.Any<CancellationToken>())
 			.Returns(Task.FromResult("Summary"));

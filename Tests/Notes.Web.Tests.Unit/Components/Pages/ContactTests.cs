@@ -67,7 +67,7 @@ public class ContactTests : BunitContext
 
 		// Assert
 		var links = cut.FindAll("a");
-		var hasGitHubLink = links.Any(a => a.GetAttribute("href") != null && a.GetAttribute("href").Contains("github.com"));
+		var hasGitHubLink = links.Any(a => a.GetAttribute("href") != null && a.GetAttribute("href")!.Contains("github.com"));
 		hasGitHubLink.Should().BeTrue();
 		cut.Markup.Should().Contain("GitHub Issues");
 	}
@@ -80,7 +80,7 @@ public class ContactTests : BunitContext
 
 		// Assert
 		var links = cut.FindAll("a");
-		var hasContributingLink = links.Any(a => a.GetAttribute("href") != null && a.GetAttribute("href").Contains("CONTRIBUTING"));
+		var hasContributingLink = links.Any(a => a.GetAttribute("href") != null && a.GetAttribute("href")!.Contains("CONTRIBUTING"));
 		hasContributingLink.Should().BeTrue();
 		cut.Markup.Should().Contain("contributing guide");
 	}

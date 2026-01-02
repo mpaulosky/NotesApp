@@ -374,3 +374,7 @@ MigrationBackup/
 *.sw[a-p]
 .idea_modules/
 coverage.cobertura.xml
+Tests/Notes.Web.Tests.Unit/coverage.cobertura.xml
+Tests/Notes.Web.Tests.Unit/coverage.cobertura.xml
+Tests/Notes.Web.Tests.Unit/coverage.cobertura.xml
+Tests/Notes.Web.Tests.Unit/coverage.cobertura.xml
